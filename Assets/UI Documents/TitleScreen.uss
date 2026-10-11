@@ -1,0 +1,22 @@
+.unity-button {
+    border-left-color: rgba(192, 159, 159, 0);
+    border-right-color: rgba(192, 159, 159, 0);
+    border-top-color: rgba(192, 159, 159, 0);
+    border-bottom-color: rgba(192, 159, 159, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0);
+    border-top-width: 6px;
+    border-right-width: 6px;
+    border-bottom-width: 6px;
+    border-left-width: 6px;
+    transition-duration: 0.1s;
+}
+
+.unity-button:hover {
+    scale: 1.1 1.1;
+    translate: 0 -7px;
+    rotate: 2deg;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out-back;
+}
