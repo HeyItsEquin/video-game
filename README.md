@@ -1,2 +1,2 @@
 # video-game
-Video game
+A video game
