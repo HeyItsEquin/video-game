@@ -1,0 +1,6 @@
+[merge]
+tool = unityyamlmerge
+
+[mergetool "unityyamlmerge"]
+trustExitCode = false
+cmd = "/home/equin/Unity/Hub/Editor/6000.0.84f1/Editor/Data/Tools/UnityYAMLMerge" merge -p "$BASE" "$REMOTE" "$LOCAL" "$MERGED"
