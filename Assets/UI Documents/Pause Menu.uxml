@@ -1,0 +1,16 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Documents/StyleSheet.uss?fileID=7433441132597879392&amp;guid=2fa403eea1c40c9429be14b222be08c2&amp;type=3#StyleSheet" />
+    <ui:VisualElement name="Root" style="flex-grow: 1;">
+        <ui:VisualElement name="BasePauseMenu" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.65); margin-top: 79px; margin-right: 79px; margin-bottom: 79px; margin-left: 79px; border-top-left-radius: 128px; border-top-right-radius: 128px; border-bottom-right-radius: 128px; border-bottom-left-radius: 128px;">
+            <ui:Label text="PAUSED" name="PauseText" class="unity-label" style="margin-top: 71px; margin-right: 71px; margin-bottom: 71px; margin-left: 71px; font-size: 98px; color: rgb(255, 255, 255);" />
+            <ui:Slider label="Sensitivity" value="42" high-value="100" style="background-color: rgb(255, 255, 255); border-top-left-radius: 19px; border-top-right-radius: 19px; border-bottom-right-radius: 19px; border-bottom-left-radius: 19px; border-top-width: 9px; border-right-width: 9px; border-bottom-width: 9px; border-left-width: 9px; font-size: 31px; margin-right: 191px; margin-left: 191px;" />
+            <ui:VisualElement name="Controls" style="flex-grow: 1;">
+                <ui:ListView />
+            </ui:VisualElement>
+            <ui:VisualElement name="Buttons" style="flex-grow: 1; flex-direction: row; flex-shrink: 0; border-top-width: 82px; border-right-width: 173px; border-bottom-width: 82px; border-left-width: 173px;">
+                <ui:Button text="Resume" name="RESUME" class="unity-button" style="min-width: 50%; font-size: 124px;" />
+                <ui:Button text="Quit" name="QUIT" class="unity-button" style="min-width: 50%; font-size: 124px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
