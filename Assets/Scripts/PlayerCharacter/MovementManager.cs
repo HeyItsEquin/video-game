@@ -26,13 +26,13 @@ public class MovementManager : MonoBehaviour
 
     public bool IsGrounded()
     {
-        
-        var ray = Physics.Raycast(
-            transform.position + Vector3.up/2, Vector3.down,
-            out groundHit,
-            transform.localScale.y,
-            DefaultLMask);
+        var verticalOffset = Vector3.up/2;
 
+        var ray = Physics.Raycast(
+            transform.position + verticalOffset, Vector3.down,
+            out groundHit,
+            (transform.localScale.y/2),
+            DefaultLMask);
         
         return ray;
     }
