@@ -4,10 +4,20 @@
         <ui:VisualElement name="BasePauseMenu" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.65); margin-top: 79px; margin-right: 79px; margin-bottom: 79px; margin-left: 79px; border-top-left-radius: 128px; border-top-right-radius: 128px; border-bottom-right-radius: 128px; border-bottom-left-radius: 128px;">
             <ui:Label text="PAUSED" name="PauseText" class="unity-label" style="margin-top: 71px; margin-right: 71px; margin-bottom: 71px; margin-left: 71px; font-size: 98px; color: rgb(255, 255, 255);" />
             <ui:Slider label="Sensitivity" value="42" high-value="100" style="background-color: rgb(255, 255, 255); border-top-left-radius: 19px; border-top-right-radius: 19px; border-bottom-right-radius: 19px; border-bottom-left-radius: 19px; border-top-width: 9px; border-right-width: 9px; border-bottom-width: 9px; border-left-width: 9px; font-size: 31px; margin-right: 191px; margin-left: 191px;" />
-            <ui:VisualElement name="Controls" style="flex-grow: 1;">
-                <ui:ListView />
+            <ui:VisualElement name="Controls" style="flex-grow: 1; margin-top: 17px; margin-right: 261px; margin-bottom: 17px; margin-left: 261px;">
+                <ui:Label text="Controls" name="Label" class="unity-label" style="font-size: 79px; -unity-text-outline-color: rgb(0, 0, 0); color: rgb(255, 255, 255);" />
+                <ui:ScrollView enabled="true" horizontal-scroller-visibility="Hidden" style="font-size: 151px;">
+                    <ui:VisualElement name="ControlElement" style="flex-grow: 1; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; flex-direction: row;">
+                        <ui:Label text="Space:" name="Button" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-left; min-width: 50px; flex-basis: 50%;" />
+                        <ui:Label text="Jump" name="Action" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-right; min-width: 50px; flex-basis: 50%;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="ControlElement" style="flex-grow: 1; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; flex-direction: row;">
+                        <ui:Label text="WASD:" name="Button" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-left; min-width: 50px; flex-basis: 50%;" />
+                        <ui:Label text="Move" name="Action" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-right; min-width: 50px; flex-basis: 50%;" />
+                    </ui:VisualElement>
+                </ui:ScrollView>
             </ui:VisualElement>
-            <ui:VisualElement name="Buttons" style="flex-grow: 1; flex-direction: row; flex-shrink: 0; border-top-width: 82px; border-right-width: 173px; border-bottom-width: 82px; border-left-width: 173px;">
+            <ui:VisualElement name="Buttons" style="flex-grow: 1; flex-direction: row; flex-shrink: 0; border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px;">
                 <ui:Button text="Resume" name="RESUME" class="unity-button" style="min-width: 50%; font-size: 124px;" />
                 <ui:Button text="Quit" name="QUIT" class="unity-button" style="min-width: 50%; font-size: 124px;" />
             </ui:VisualElement>
