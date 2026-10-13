@@ -22,3 +22,8 @@
     transition-duration: 0.2s;
     transition-timing-function: ease-out-back;
 }
+
+.unity-label {
+    -unity-text-align: upper-center;
+    -unity-font-definition: url("project://database/Assets/UI%20Documents/Font/UncialAntiqua-Regular.ttf?fileID=12800000&guid=78a6e963ec4b8994a9f72d5df32c963a&type=3#UncialAntiqua-Regular");
+}
