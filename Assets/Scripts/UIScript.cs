@@ -9,22 +9,47 @@ public class UIScript : MonoBehaviour
     [SerializeField] private string startButtonScene;
     private VisualElement root;
     private Button startButton;
+    private Button resumeButton;
     private Button quitButton;
+    private Slider sensSlider;
     [SerializeField] private AudioSource hoverSFX;
     [SerializeField] private AudioSource clickSFX;
+    public PlayerInputManager playerInputManager;
+    private PlayerCamera playerCamera;
+    private float sensValue = 0.5f;
     private void OnEnable()
     {
+        playerCamera = FindAnyObjectByType<PlayerCamera>();
         uiDocument = GetComponent<UIDocument>();
         root = uiDocument.rootVisualElement;
         startButton = root.Q<Button>("START");
+        if (startButton == null)
+        {
+            resumeButton = root.Q<Button>("RESUME");
+            resumeButton.clicked += () => ReturnBack();
+            resumeButton.RegisterCallback<MouseEnterEvent>(evt => PlaySFXUsingRandom(hoverSFX));
+
+            sensSlider = root.Q<Slider>("Sens");
+            sensSlider.value = sensValue;
+            sensSlider.RegisterValueChangedCallback(ChangePlayerSens);
+
+        }
+        else
+        {
+            startButton.clicked += () => StartCoroutine(LoadSceneTransition());
+            startButton.RegisterCallback<MouseEnterEvent>(evt => PlaySFXUsingRandom(hoverSFX));
+        }
         quitButton = root.Q<Button>("QUIT");
 
-        startButton.clicked += () => StartCoroutine(LoadSceneTransition());
-        startButton.RegisterCallback<MouseEnterEvent>(evt => PlaySFXUsingRandom(hoverSFX));
+        
         quitButton.clicked += () => Application.Quit();
         quitButton.RegisterCallback<MouseEnterEvent>(evt => PlaySFXUsingRandom(hoverSFX));
     }
-
+    private void ReturnBack()
+    {
+        playerInputManager.OnMenu();
+        PlaySFXUsingRandom(clickSFX);
+    }
     private IEnumerator LoadSceneTransition()
     {
         PlaySFXUsingRandom(clickSFX);
@@ -40,5 +65,11 @@ public class UIScript : MonoBehaviour
             audioSource.Play();
         }
     }
-
+    private void ChangePlayerSens(ChangeEvent<float> sens)
+    {
+        playerCamera.SetCameraSensitivity(sens.newValue);
+        PlaySFXUsingRandom(hoverSFX);
+        sensValue = sens.newValue;
+        
+    }
 }
