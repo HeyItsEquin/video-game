@@ -176,6 +176,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2cf3a208b31812ddabe68e4bfcbf3d9, type: 3}
+--- !u!82 &547859018 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8595634002735200223, guid: d2cf3a208b31812ddabe68e4bfcbf3d9, type: 3}
+  m_PrefabInstance: {fileID: 547859017}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &547859019 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 4703306207840046314, guid: d2cf3a208b31812ddabe68e4bfcbf3d9, type: 3}
+  m_PrefabInstance: {fileID: 547859017}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &646651599
 Mesh:
   m_ObjectHideFlags: 0
@@ -333,8 +343,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1
-  m_MeshMetrics[1]: 1
+  'm_MeshMetrics[0]': 1
+  'm_MeshMetrics[1]': 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
@@ -372,8 +382,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startButtonScene: 
-  hoverSFX: {fileID: 0}
-  clickSFX: {fileID: 0}
+  hoverSFX: {fileID: 547859019}
+  clickSFX: {fileID: 547859018}
+  playerInputManager: {fileID: 0}
 --- !u!114 &777243680
 MonoBehaviour:
   m_ObjectHideFlags: 0

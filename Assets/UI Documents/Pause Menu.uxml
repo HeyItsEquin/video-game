@@ -3,7 +3,7 @@
     <ui:VisualElement name="Root" style="flex-grow: 1;">
         <ui:VisualElement name="BasePauseMenu" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.65); margin-top: 79px; margin-right: 79px; margin-bottom: 79px; margin-left: 79px; border-top-left-radius: 128px; border-top-right-radius: 128px; border-bottom-right-radius: 128px; border-bottom-left-radius: 128px;">
             <ui:Label text="PAUSED" name="PauseText" class="unity-label" style="margin-top: 35px; margin-right: 35px; margin-bottom: 35px; margin-left: 35px; font-size: 98px; color: rgb(255, 255, 255);" />
-            <ui:Slider label="Sensitivity" value="42" high-value="1" class="unity-label" style="font-size: 28px; margin-right: 445px; margin-left: 445px;" />
+            <ui:Slider label="Sensitivity" value="42" high-value="1" name="Sens" class="unity-label" style="font-size: 28px; margin-right: 445px; margin-left: 445px;" />
             <ui:VisualElement name="Controls" style="flex-grow: 1; margin-top: 17px; margin-right: 261px; margin-bottom: 17px; margin-left: 261px; border-right-width: 120px; border-left-width: 120px;">
                 <ui:Label text="Controls" name="Label" class="unity-label" style="font-size: 79px; -unity-text-outline-color: rgb(0, 0, 0); color: rgb(255, 255, 255);" />
                 <ui:ScrollView enabled="true" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" style="font-size: 151px;">
