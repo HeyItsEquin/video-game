@@ -26,11 +26,14 @@ public class MovementManager : MonoBehaviour
 
     public bool IsGrounded()
     {
+        
         var ray = Physics.Raycast(
-            transform.position, Vector3.down,
+            transform.position + Vector3.up/2, Vector3.down,
             out groundHit,
             transform.localScale.y,
             DefaultLMask);
+
+        
         return ray;
     }
 
@@ -44,6 +47,9 @@ public class MovementManager : MonoBehaviour
         if (IsGrounded())
         {
             PlayerBody.linearVelocity += Vector3.up*JumpPower;
+        }
+        else         {
+            Debug.Log("Not grounded");
         }
     }
 
@@ -60,6 +66,10 @@ public class MovementManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        Debug.DrawRay(transform.position, Vector3.down * transform.localScale.y, Color.red);
+        
         PlayerBody.linearVelocity = GetLinearVelocity();
+
+        Debug.DrawRay(transform.position, PlayerBody.linearVelocity, Color.green);
     }
 }
