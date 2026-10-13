@@ -333,8 +333,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  'm_MeshMetrics[0]': 1
-  'm_MeshMetrics[1]': 1
+  m_MeshMetrics[0]: 1
+  m_MeshMetrics[1]: 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
@@ -656,7 +656,7 @@ PrefabInstance:
       objectReference: {fileID: 646651599}
     - target: {fileID: 2937760148696752594, guid: 6cc7de8395b972b44ae4cf3f772c8f1a, type: 3}
       propertyPath: m_VersionIndex
-      value: 1042
+      value: 1048
       objectReference: {fileID: 0}
     - target: {fileID: 6386364082963876168, guid: 6cc7de8395b972b44ae4cf3f772c8f1a, type: 3}
       propertyPath: m_Name
