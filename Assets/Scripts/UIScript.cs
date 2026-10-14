@@ -60,8 +60,8 @@ public class UIScript : MonoBehaviour
     {
         if (audioSource != null)
         {
-            audioSource.pitch = Random.Range(0.8f, 1.0f);
-            audioSource.volume = Random.Range(0.8f, 1f);
+            //audioSource.pitch = Random.Range(0.8f, 1.0f);
+            //audioSource.volume = Random.Range(0.8f, 1f);
             audioSource.Play();
         }
     }
