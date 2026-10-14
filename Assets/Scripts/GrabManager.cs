@@ -22,7 +22,7 @@ public class GrabManager : MonoBehaviour
     }
     public void Grab()
     {
-        Collider[] grabColliders = Physics.OverlapBox(transform.position + transform.forward + CameraOffset, Vector3.one * 0.5f, Quaternion.identity, GrabMask);
+        Collider[] grabColliders = Physics.OverlapBox(transform.position + transform.forward + CameraOffset, Vector3.one * 0.5f, Quaternion.identity, GrabMask, QueryTriggerInteraction.Collide);
         RotaryHeart.Lib.PhysicsExtension.DebugExtensions.DebugBox(transform.position + transform.forward + CameraOffset, Vector3.one * 0.5f, Color.red, Quaternion.identity, 0, RotaryHeart.Lib.PhysicsExtension.PreviewCondition.Editor);
         if (!movementManager.IsGrounded() && grabColliders.Length > 0)
         {
