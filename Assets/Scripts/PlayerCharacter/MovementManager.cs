@@ -33,7 +33,7 @@ public class MovementManager : MonoBehaviour
         var ray = Physics.Raycast(
             transform.position + verticalOffset, Vector3.down,
             out groundHit,
-            transform.localScale.y,
+            transform.localScale.y*2,
             DefaultLMask);
         
         return ray && PlayerBody.linearVelocity.y <= 0;
