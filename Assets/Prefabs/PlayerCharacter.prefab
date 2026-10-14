@@ -331,6 +331,8 @@ MonoBehaviour:
     m_Bits: 1
   WalkSpeed: 4
   JumpPower: 2
+  SlopeInfluence: 0.8
+  SlopeLimit: 0.5
 --- !u!114 &5123216637379527289
 MonoBehaviour:
   m_ObjectHideFlags: 0
