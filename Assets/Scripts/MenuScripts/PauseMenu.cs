@@ -30,8 +30,8 @@ public class PauseMenu : MonoBehaviour
         sensSlider.RegisterValueChangedCallback(OnSensSliderValueChanged);
 
         resumeButton = root.Q<Button>("RESUME");
-        resumeButton.RegisterCallback<ClickEvent>(OnResume);
         resumeButton.RegisterCallback<ClickEvent>(OnButtonClick);
+        resumeButton.RegisterCallback<ClickEvent>(OnResume);
         resumeButton.RegisterCallback<MouseEnterEvent>(OnButtonHover);
 
         quitButton = root.Q<Button>("QUIT");
