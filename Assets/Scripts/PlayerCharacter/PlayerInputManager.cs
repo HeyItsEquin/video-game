@@ -5,14 +5,12 @@ public class PlayerInputManager : MonoBehaviour
 {
     [SerializeField] private PlayerCamera PlayerCamera;
     [SerializeField] private MovementManager MovementManager;
-    private UIScript pauseManager;
+    [SerializeField] private PauseMenu pauseMenu;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        pauseManager = FindAnyObjectByType<UIScript>();
-        pauseManager.playerInputManager = this;
-        pauseManager.gameObject.SetActive(false);
+        
     }
 
     public void OnLook(InputValue inputVal)
@@ -36,8 +34,7 @@ public class PlayerInputManager : MonoBehaviour
 
     public void OnMenu()
     {
-        pauseManager.gameObject.SetActive(!pauseManager.gameObject.activeSelf);
-        PauseManager.Pause();
+        pauseMenu.Toggle();
     }
 
     // Update is called once per frame

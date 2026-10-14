@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
     "name": "RotaryHeart.PhysicsDebugExtension.Editor",
     "references": [
@@ -8,15 +7,4 @@
         "Editor"
     ],
     "excludePlatforms": []
-=======
-{
-    "name": "RotaryHeart.PhysicsDebugExtension.Editor",
-    "references": [
-        "RotaryHeart"
-    ],
-    "includePlatforms": [
-        "Editor"
-    ],
-    "excludePlatforms": []
->>>>>>> 179f5450a25ee44f4d3a9bb2a2d51028a6a88f1e
 }
