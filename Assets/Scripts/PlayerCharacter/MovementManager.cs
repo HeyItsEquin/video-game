@@ -35,12 +35,8 @@ public class MovementManager : MonoBehaviour
             Vector3.one/2 - Vector3.up*0.4f,
             Vector3.down,
             out groundHit,
-<<<<<<< HEAD
-            transform.localScale.y,
-=======
             Quaternion.Euler(transform.forward),
             transform.localScale.y/1.9f,
->>>>>>> 179f5450a25ee44f4d3a9bb2a2d51028a6a88f1e
             DefaultLMask);
         
         return ray && PlayerBody.linearVelocity.y <= 0;
