@@ -41,7 +41,7 @@ public class UIScript : MonoBehaviour
         }
         quitButton = root.Q<Button>("QUIT");
 
-        
+
         quitButton.clicked += () => Application.Quit();
         quitButton.RegisterCallback<MouseEnterEvent>(evt => PlaySFXUsingRandom(hoverSFX));
     }
@@ -70,6 +70,6 @@ public class UIScript : MonoBehaviour
         playerCamera.SetCameraSensitivity(sens.newValue);
         PlaySFXUsingRandom(hoverSFX);
         sensValue = sens.newValue;
-        
+
     }
 }
