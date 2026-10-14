@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.Assertions;
-
+using RotaryHeart.Lib;
 public class MovementManager : MonoBehaviour
 {
 
     [SerializeField] private LayerMask DefaultLMask;
     [SerializeField] private float WalkSpeed = 6f;
     [SerializeField] private float JumpPower = 25f;
+    [SerializeField] private float SlopeInfluence = 0.5f;
+    [SerializeField] private float SlopeLimit = 0.5f;
 
     private Rigidbody PlayerBody;
 
@@ -28,10 +30,17 @@ public class MovementManager : MonoBehaviour
     {
         var verticalOffset = Vector3.up/2;
 
-        var ray = Physics.Raycast(
-            transform.position + verticalOffset, Vector3.down,
+        var ray = Physics.BoxCast(
+            transform.position + verticalOffset,
+            Vector3.one/2 - Vector3.up*0.4f,
+            Vector3.down,
             out groundHit,
+<<<<<<< HEAD
             transform.localScale.y,
+=======
+            Quaternion.Euler(transform.forward),
+            transform.localScale.y/1.9f,
+>>>>>>> 179f5450a25ee44f4d3a9bb2a2d51028a6a88f1e
             DefaultLMask);
         
         return ray && PlayerBody.linearVelocity.y <= 0;
@@ -59,16 +68,36 @@ public class MovementManager : MonoBehaviour
         MovementDirection += transform.right * InputDirection.x;
 
         MovementDirection *= WalkSpeed;
-        MovementDirection.y = PlayerBody.linearVelocity.y;
+        
+        if (IsGrounded())
+        {
+            float slopeMultiplier = Vector3.ProjectOnPlane(MovementDirection, groundHit.normal).normalized.y;
+            MovementDirection *= (1 - slopeMultiplier * SlopeInfluence);
+        }
+        else
+        {
+            MovementDirection.y = PlayerBody.linearVelocity.y;
+        }
+        //if (slopeMultiplier > SlopeLimit)
+        //{
+        //    MovementDirection -= 9.81f * Vector3.up * Time.fixedDeltaTime;
+        //    MovementDirection = Vector3.ProjectOnPlane(MovementDirection, groundHit.normal);
+        //}
 
         return MovementDirection;
     }
 
     void FixedUpdate()
     {
-        Debug.DrawRay(transform.position, Vector3.down * transform.localScale.y, Color.red);
-        
+        RotaryHeart.Lib.PhysicsExtension.Physics.BoxCast(transform.position + Vector3.up/2, Vector3.one / 2 - Vector3.up * 0.4f, Vector3.down, Quaternion.Euler(transform.forward), transform.localScale.y/1.9f, RotaryHeart.Lib.PhysicsExtension.PreviewCondition.Editor);
         PlayerBody.linearVelocity = GetLinearVelocity();
+        if (IsGrounded())
+        {
+            Vector3 tempReplacePos = transform.position;
+            tempReplacePos.y = groundHit.point.y;
+            transform.position = tempReplacePos;            
+        }
+        
 
         Debug.DrawRay(transform.position, PlayerBody.linearVelocity, Color.green);
     }
