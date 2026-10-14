@@ -171,6 +171,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 7169433949866559236, guid: d2cf3a208b31812ddabe68e4bfcbf3d9, type: 3}
+      propertyPath: SlopeLimit
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169433949866559236, guid: d2cf3a208b31812ddabe68e4bfcbf3d9, type: 3}
+      propertyPath: SlopeInfluence
+      value: 0.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -7,6 +7,8 @@ public class MovementManager : MonoBehaviour
     [SerializeField] private LayerMask DefaultLMask;
     [SerializeField] private float WalkSpeed = 6f;
     [SerializeField] private float JumpPower = 25f;
+    [SerializeField] private float SlopeInfluence = 0.5f;
+    [SerializeField] private float SlopeLimit = 0.5f;
 
     private Rigidbody PlayerBody;
 
@@ -60,6 +62,14 @@ public class MovementManager : MonoBehaviour
 
         MovementDirection *= WalkSpeed;
         MovementDirection.y = PlayerBody.linearVelocity.y;
+
+        float slopeMultiplier = Vector3.ProjectOnPlane(MovementDirection, groundHit.normal).normalized.y;
+        MovementDirection *= (1 - slopeMultiplier * SlopeInfluence);
+        //if (slopeMultiplier > SlopeLimit)
+        //{
+        //    MovementDirection -= 9.81f * Vector3.up * Time.fixedDeltaTime;
+        //    MovementDirection = Vector3.ProjectOnPlane(MovementDirection, groundHit.normal);
+        //}
 
         return MovementDirection;
     }
