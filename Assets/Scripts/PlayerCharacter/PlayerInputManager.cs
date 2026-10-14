@@ -37,6 +37,10 @@ public class PlayerInputManager : MonoBehaviour
         pauseMenu.Toggle();
     }
 
+    public void OnGrab()
+    {
+        MovementManager.PlayerGrabManager.Grab();
+    }
     // Update is called once per frame
     void Update()
     {
