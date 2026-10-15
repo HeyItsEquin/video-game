@@ -55,7 +55,8 @@ public class MovementManager : MonoBehaviour
         if (PlayerGrabManager.IsGrabbing)
         {
             PlayerGrabManager.IsGrabbing = false;
-            PlayerBody.linearVelocity = transform.forward * GrabOffSpeed;
+            InputDirection.y = GrabOffSpeed;
+            InputDirection.x = 0;
             PlayerBody.linearVelocity += Vector3.up * JumpPower;
         }
         if (IsGrounded())

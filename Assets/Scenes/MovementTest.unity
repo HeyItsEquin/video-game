@@ -192,6 +192,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7169433949866559236, guid: d2cf3a208b31812ddabe68e4bfcbf3d9, type: 3}
+      propertyPath: GrabOffSpeed
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169433949866559236, guid: d2cf3a208b31812ddabe68e4bfcbf3d9, type: 3}
       propertyPath: SlopeInfluence
       value: 0.8
       objectReference: {fileID: 0}
@@ -836,7 +840,7 @@ PrefabInstance:
       objectReference: {fileID: 646651599}
     - target: {fileID: 2937760148696752594, guid: 6cc7de8395b972b44ae4cf3f772c8f1a, type: 3}
       propertyPath: m_VersionIndex
-      value: 1063
+      value: 1066
       objectReference: {fileID: 0}
     - target: {fileID: 3104294881369279184, guid: 6cc7de8395b972b44ae4cf3f772c8f1a, type: 3}
       propertyPath: m_LocalRotation.w
