@@ -43,6 +43,7 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
+        LoadSettings();
         Hide();
     }
 
