@@ -2,6 +2,7 @@ using System.ComponentModel.Design.Serialization;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
 public class PauseMenu : MonoBehaviour
@@ -42,7 +43,7 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
-        Close();
+        Hide();
     }
 
     public void Toggle()
@@ -59,14 +60,35 @@ public class PauseMenu : MonoBehaviour
 
     public void Open()
     {
+        LoadSettings();
         gameObject.SetActive(true);
         PauseManager.Pause();
     }
 
     public void Close()
     {
+        SaveSettings();
         gameObject.SetActive(false);
         PauseManager.Unpause();
+    }
+
+    void Hide()
+    {
+        gameObject.SetActive(false);
+        PauseManager.Unpause();
+    }
+
+    void SaveSettings()
+    {
+        SaveManager.Instance.Set(Opts.CameraSensitivity, sensValue);
+
+        SaveManager.Instance.Save();
+    }
+
+    void LoadSettings()
+    {
+        sensValue = SaveManager.Instance.Get(Opts.CameraSensitivity);
+        playerCamera.SetCameraSensitivity(sensValue);
     }
 
     void OnResume(ClickEvent evt)
