@@ -414,6 +414,8 @@ MonoBehaviour:
     m_Bits: 8
   EasingSpeed: 5
   CameraOffset: {x: 0, y: 1.5, z: 0}
+  GrabGracePeriod: 0.5
+  grabbedObject: {fileID: 0}
   IsGrabbing: 0
 --- !u!1 &1486745083
 GameObject:
@@ -840,7 +842,7 @@ PrefabInstance:
       objectReference: {fileID: 646651599}
     - target: {fileID: 2937760148696752594, guid: 6cc7de8395b972b44ae4cf3f772c8f1a, type: 3}
       propertyPath: m_VersionIndex
-      value: 1066
+      value: 1069
       objectReference: {fileID: 0}
     - target: {fileID: 3104294881369279184, guid: 6cc7de8395b972b44ae4cf3f772c8f1a, type: 3}
       propertyPath: m_LocalRotation.w
