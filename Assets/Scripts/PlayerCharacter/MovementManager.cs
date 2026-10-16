@@ -33,6 +33,8 @@ public class MovementManager : MonoBehaviour
     {
         var verticalOffset = Vector3.up/2;
 
+        // checks if the player is grounded by casting a box downwards from the player postion + a camera offset
+
         var ray = Physics.BoxCast(
             transform.position + verticalOffset,
             Vector3.one/2 - Vector3.up*0.4f,
@@ -54,6 +56,7 @@ public class MovementManager : MonoBehaviour
     {
         if (PlayerGrabManager.IsGrabbing)
         {
+            // sets the player to not grabbing and jumps off the object they are grabbing
             PlayerGrabManager.IsGrabbing = false;
             InputDirection.y = GrabOffSpeed;
             InputDirection.x = 0;
@@ -79,6 +82,7 @@ public class MovementManager : MonoBehaviour
         
         if (IsGrounded())
         {
+            // if player is grounded use slopes to influence the movement direction
             float slopeMultiplier = Vector3.ProjectOnPlane(MovementDirection, groundHit.normal).normalized.y;
             MovementDirection *= (1 - slopeMultiplier * SlopeInfluence);
         }
@@ -97,6 +101,7 @@ public class MovementManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        // performs a box cast for ground detection
         RotaryHeart.Lib.PhysicsExtension.Physics.BoxCast(transform.position + Vector3.up/2, Vector3.one / 2 - Vector3.up * 0.4f, Vector3.down, Quaternion.Euler(transform.forward), transform.localScale.y/1.9f, RotaryHeart.Lib.PhysicsExtension.PreviewCondition.Editor);
         if (PlayerGrabManager.IsGrabbing)
             PlayerGrabManager.Grabbing();
@@ -104,9 +109,10 @@ public class MovementManager : MonoBehaviour
             PlayerBody.linearVelocity = GetLinearVelocity();
         if (IsGrounded())
         {
+            // sets player Y to align with ground
             Vector3 tempReplacePos = transform.position;
             tempReplacePos.y = groundHit.point.y;
-            transform.position = tempReplacePos;            
+            transform.position = tempReplacePos;
         }
         
 
