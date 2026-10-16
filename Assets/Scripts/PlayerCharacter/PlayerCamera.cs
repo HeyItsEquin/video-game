@@ -32,20 +32,36 @@ public class PlayerCamera : MonoBehaviour
 
     public void Rotate(Vector3 input)
     {
+        // Process mouse deltas
         CameraRotation.y += input.x * CameraSensitivityFactor;
 
         CameraRotation.x -= input.y * CameraSensitivityFactor;
         CameraRotation.x = Mathf.Clamp(CameraRotation.x, -70f, 70f);
 
-        var normVec = new Vector3(CameraRotation.x, 0, CameraRotation.z);
         if (PlayerMovementManager.PlayerGrabManager.IsGrabbing)
         {
+            // Camera shouldn't be able to rotate full 180deg when grabbing
             CameraRotation.y = GrabClamp(CameraRotation.y);
-        }    
+        }
 
-        transform.localRotation = Quaternion.Euler(normVec);
+        ApplyRotation();
+    }
 
-        transform.parent.localRotation = Quaternion.Euler(new Vector3(0, CameraRotation.y, 0));
+    private void ApplyRotation()
+    {
+        var normalVec = new Vector3(CameraRotation.x, 0, CameraRotation.z);
+        var playerRotationVec = new Vector3(0, CameraRotation.y, 0);
+
+        transform.localRotation = Quaternion.Euler(normalVec);
+
+        // Rotation about the Y-axis should rotate player, not camera
+        transform.parent.localRotation = Quaternion.Euler(playerRotationVec);
+    }
+
+    public void SetRotation(Vector3 euler)
+    {
+        CameraRotation = euler;
+        ApplyRotation();
     }
 
     public void SetCameraSensitivity(float sens)
@@ -64,13 +80,11 @@ public class PlayerCamera : MonoBehaviour
 
     float GrabClamp(float GrabAngle)
     {
-        
         float angleOfGrab = PlayerMovementManager.PlayerGrabManager.grabbedObject.transform.eulerAngles.y - 180f;
         float clampedAngleOfGrab = Mathf.DeltaAngle(angleOfGrab, GrabAngle);
         clampedAngleOfGrab = Mathf.Clamp(clampedAngleOfGrab, -MaxGrabTurn, MaxGrabTurn);
         GrabAngle = angleOfGrab + clampedAngleOfGrab;
 
-        
         return GrabAngle;
     }
 }
