@@ -14,7 +14,6 @@ public class MovementManager : MonoBehaviour
 
     private Rigidbody PlayerBody;
 
-    private Vector3 AirVelocityOffset = Vector3.zero;
     private Vector3 MovementDirection = Vector3.zero;
     private Vector3 InputDirection = Vector3.zero;
 
@@ -55,9 +54,9 @@ public class MovementManager : MonoBehaviour
         {
             // sets the player to not grabbing and jumps off the object they are grabbing
             PlayerGrabManager.IsGrabbing = false;
-            AirVelocityOffset.y = GrabOffSpeed;
             PlayerBody.linearVelocity += Vector3.up * JumpPower;
         }
+        
         if (IsGrounded())
         {
             PlayerBody.linearVelocity += Vector3.up * JumpPower;
@@ -70,24 +69,13 @@ public class MovementManager : MonoBehaviour
 
     Vector3 GetLinearVelocity()
     {
-        if (IsGrounded())
-        {
-            MovementDirection = transform.forward * InputDirection.y;
-            MovementDirection += transform.right * InputDirection.x;
-        }
-        else
-        {
-            MovementDirection = transform.forward * Math.Max(InputDirection.y, AirVelocityOffset.y);
-            MovementDirection += transform.right * InputDirection.x;
-        }
+        MovementDirection = transform.forward * InputDirection.y;
+        MovementDirection += transform.right * InputDirection.x;
         
         MovementDirection *= WalkSpeed;
 
         if (IsGrounded())
         {
-            // Reset air velocity when the player hits the ground
-            AirVelocityOffset = Vector3.zero;
-
             // if player is grounded use slopes to influence the movement direction
             float slopeMultiplier = Vector3.ProjectOnPlane(MovementDirection, groundHit.normal).normalized.y;
             MovementDirection *= (1 - slopeMultiplier * SlopeInfluence);
