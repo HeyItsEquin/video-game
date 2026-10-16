@@ -86,11 +86,6 @@ public class MovementManager : MonoBehaviour
         {
             MovementDirection.y = PlayerBody.linearVelocity.y;
         }
-        //if (slopeMultiplier > SlopeLimit)
-        //{
-        //    MovementDirection -= 9.81f * Vector3.up * Time.fixedDeltaTime;
-        //    MovementDirection = Vector3.ProjectOnPlane(MovementDirection, groundHit.normal);
-        //}
 
         return MovementDirection;
     }
