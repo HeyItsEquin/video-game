@@ -7,12 +7,14 @@ public class PlayerCharacter : MonoBehaviour
     private MovementManager movementManager;
     private PlayerCamera playerCamera;
     private PlayerInputManager playerInputManager;
-    private Checkpoint lastCheckpoint;
+    public Checkpoint lastCheckpoint;
+    [SerializeField] private Checkpoint startingCheckpoint;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerBody = GetComponent<Rigidbody>();
+        //lastCheckpoint = SaveManager.Instance.Get(Opts.PlayerLastCheckpoint);
     }
 
     // Update is called once per frame

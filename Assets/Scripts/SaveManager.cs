@@ -12,6 +12,7 @@ public readonly struct OptionKey<T>
 public static class Opts
 {
     public static readonly OptionKey<float> CameraSensitivity = new("controls.sensitivity", 0.5f);
+    public static readonly OptionKey<Checkpoint> PlayerLastCheckpoint = new("player.lastCheckpoint", null);
 }
 
 public class SaveManager : MonoBehaviour
