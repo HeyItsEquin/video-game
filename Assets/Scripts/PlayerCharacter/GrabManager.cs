@@ -67,7 +67,9 @@ public class GrabManager : MonoBehaviour
         PlayerBody.linearVelocity = Vector3.zero;
         if (grabbedObject != null)
         {
-            transform.position = Vector3.Lerp(transform.position, grabbedObject.transform.position + grabbedObject.transform.forward - CameraOffset, Time.deltaTime * EasingSpeed);
+            // Quadratic curve for move speed
+            var t = Time.deltaTime * (EasingSpeed*EasingSpeed);
+            transform.position = Vector3.Lerp(transform.position, grabbedObject.transform.position + grabbedObject.transform.forward - CameraOffset, t);
         }
     }
 

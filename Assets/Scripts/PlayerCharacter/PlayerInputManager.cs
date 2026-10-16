@@ -4,14 +4,18 @@ using UnityEngine.InputSystem;
 public class PlayerInputManager : MonoBehaviour
 {
     [SerializeField] private PlayerCamera PlayerCamera;
-    [SerializeField] private MovementManager MovementManager;
     [SerializeField] private PauseMenu pauseMenu;
 
+    private PlayerCharacter playerCharacter;
+    private MovementManager MovementManager;
     private GlobalSounds globalSounds;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        playerCharacter = GetComponent<PlayerCharacter>();
+        MovementManager = GetComponent<MovementManager>();
+
         // TODO: DON'T PUT THE FUCKING AMBIENT NOISE IN THE INPUT MANAGER.
         globalSounds = GlobalSounds.GetGlobalSounds();
         globalSounds.PlaySound(globalSounds.AmbientWind, volume: 0.5f, loop: true);
@@ -45,6 +49,12 @@ public class PlayerInputManager : MonoBehaviour
     {
         MovementManager.PlayerGrabManager.Grab();
     }
+
+    public void OnSuicide()
+    {
+        playerCharacter.ResetState();    
+    }
+
     // Update is called once per frame
     void Update()
     {

@@ -40,7 +40,7 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "852140f2-7766-474d-8707-702459ba45f3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "Hold",
                     "initialStateCheck": false,
@@ -100,6 +100,16 @@
                     "name": "Menu",
                     "type": "Button",
                     "id": "273a95c3-070f-4f13-a89e-0b4f66d95aee",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "Suicide",
+                    "type": "Button",
+                    "id": "03701f93-ae11-4826-9656-8dff33e6b1b5",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -512,6 +522,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f5e33d8b-e397-4af0-8ed2-8c90f2c72d2e",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Suicide",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
