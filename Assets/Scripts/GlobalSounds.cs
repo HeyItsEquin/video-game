@@ -5,14 +5,16 @@ public class GlobalSounds : MonoBehaviour
     // UI Sounds
     [SerializeField] public AudioSource MenuButtonClick;
     [SerializeField] public AudioSource MenuButtonHover;
+    [SerializeField] public AudioSource AmbientWind;
 
-    public void PlaySound(AudioSource source, float pitch = 1.0f, float volume = 1.0f)
+    public void PlaySound(AudioSource source, float pitch = 1.0f, float volume = 1.0f, bool loop = false)
     {
         if (!source)
         {
             Debug.LogError("Attempted to play null AudioSource");
         }
 
+        source.loop = loop;
         source.pitch = pitch;
         source.volume = volume;
         source.Play();

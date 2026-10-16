@@ -45,6 +45,7 @@ public class PauseMenu : MonoBehaviour
     {
         LoadSettings();
         Hide();
+        LoadSettings();
     }
 
     public void Toggle()

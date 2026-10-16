@@ -7,10 +7,14 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] private MovementManager MovementManager;
     [SerializeField] private PauseMenu pauseMenu;
 
+    private GlobalSounds globalSounds;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        // TODO: DON'T PUT THE FUCKING AMBIENT NOISE IN THE INPUT MANAGER.
+        globalSounds = GlobalSounds.GetGlobalSounds();
+        globalSounds.PlaySound(globalSounds.AmbientWind, volume: 0.5f, loop: true);
     }
 
     public void OnLook(InputValue inputVal)
