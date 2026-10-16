@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.Assertions;
-using RotaryHeart.Lib;
+using System;
 public class MovementManager : MonoBehaviour
 {
     public GrabManager PlayerGrabManager;
@@ -14,8 +14,9 @@ public class MovementManager : MonoBehaviour
 
     private Rigidbody PlayerBody;
 
-    private Vector3 MovementDirection;
-    private Vector3 InputDirection;
+    private Vector3 AirVelocityOffset = Vector3.zero;
+    private Vector3 MovementDirection = Vector3.zero;
+    private Vector3 InputDirection = Vector3.zero;
 
     private RaycastHit groundHit;
 
@@ -24,9 +25,6 @@ public class MovementManager : MonoBehaviour
     {
         PlayerBody = GetComponent<Rigidbody>();
         Assert.IsNotNull(PlayerBody, "Mreow :3; mlm looking for twink");
-
-        MovementDirection = Vector3.zero;
-        InputDirection = Vector3.zero;
     }
 
     public bool IsGrounded()
@@ -57,28 +55,39 @@ public class MovementManager : MonoBehaviour
         {
             // sets the player to not grabbing and jumps off the object they are grabbing
             PlayerGrabManager.IsGrabbing = false;
-            InputDirection.y = GrabOffSpeed;
-            InputDirection.x = 0;
+            AirVelocityOffset.y = GrabOffSpeed;
             PlayerBody.linearVelocity += Vector3.up * JumpPower;
         }
         if (IsGrounded())
         {
             PlayerBody.linearVelocity += Vector3.up * JumpPower;
         }
-        else         {
+        else 
+        {
             Debug.Log("Not grounded");
         }
     }
 
     Vector3 GetLinearVelocity()
     {
-        MovementDirection = transform.forward * InputDirection.y;
-        MovementDirection += transform.right * InputDirection.x;
-
-        MovementDirection *= WalkSpeed;
-        
         if (IsGrounded())
         {
+            MovementDirection = transform.forward * InputDirection.y;
+            MovementDirection += transform.right * InputDirection.x;
+        }
+        else
+        {
+            MovementDirection = transform.forward * Math.Max(InputDirection.y, AirVelocityOffset.y);
+            MovementDirection += transform.right * InputDirection.x;
+        }
+        
+        MovementDirection *= WalkSpeed;
+
+        if (IsGrounded())
+        {
+            // Reset air velocity when the player hits the ground
+            AirVelocityOffset = Vector3.zero;
+
             // if player is grounded use slopes to influence the movement direction
             float slopeMultiplier = Vector3.ProjectOnPlane(MovementDirection, groundHit.normal).normalized.y;
             MovementDirection *= (1 - slopeMultiplier * SlopeInfluence);
