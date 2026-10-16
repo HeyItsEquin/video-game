@@ -34,7 +34,6 @@ public class MovementManager : MonoBehaviour
         var verticalOffset = Vector3.up/2;
 
         // checks if the player is grounded by casting a box downwards from the player postion + a camera offset
-
         var ray = Physics.BoxCast(
             transform.position + verticalOffset,
             Vector3.one/2 - Vector3.up*0.4f,
@@ -71,8 +70,6 @@ public class MovementManager : MonoBehaviour
         }
     }
 
-    
-
     Vector3 GetLinearVelocity()
     {
         MovementDirection = transform.forward * InputDirection.y;
@@ -94,20 +91,38 @@ public class MovementManager : MonoBehaviour
         return MovementDirection;
     }
 
+    // "Hoist" player up if their feet are colliding with an object
+    void VerticalAlignPlayer()
+    {
+        Vector3 temp = transform.position;
+        temp.y = groundHit.point.y;
+        transform.position = temp; // Should probably find a better solution than setting transform.position, later.
+    }
+
+    public void ResetMovement()
+    {
+        PlayerGrabManager.StopGrabbing();
+        PlayerBody.linearVelocity = Vector3.zero;
+    }
+
+    public void ResetPosition(Vector3 pos)
+    {
+        ResetMovement();
+        PlayerBody.transform.position = pos;
+    }
+
     void FixedUpdate()
     {
-        // performs a box cast for ground detection
         RotaryHeart.Lib.PhysicsExtension.Physics.BoxCast(transform.position + Vector3.up/2, Vector3.one / 2 - Vector3.up * 0.4f, Vector3.down, Quaternion.Euler(transform.forward), transform.localScale.y/1.9f, RotaryHeart.Lib.PhysicsExtension.PreviewCondition.Editor);
+        
         if (PlayerGrabManager.IsGrabbing)
             PlayerGrabManager.Grabbing();
         else
             PlayerBody.linearVelocity = GetLinearVelocity();
+
         if (IsGrounded())
         {
-            // sets player Y to align with ground
-            Vector3 tempReplacePos = transform.position;
-            tempReplacePos.y = groundHit.point.y;
-            transform.position = tempReplacePos;
+            VerticalAlignPlayer();
         }
         
 

@@ -15,9 +15,6 @@ public class GrabManager : MonoBehaviour
     private MovementManager movementManager;
     private Rigidbody PlayerBody;
 
-    
-    
-    
     private void Start()
     {
         PlayerBody = GetComponent<Rigidbody>();
@@ -32,6 +29,7 @@ public class GrabManager : MonoBehaviour
             Grab();
         }
     }
+
     public void Grab()
     {
         if (IsGrabbing)
@@ -54,6 +52,14 @@ public class GrabManager : MonoBehaviour
             grabbedObject = grabColliders[0].gameObject;
             TryingToGrab = false;
         }
+    }
+
+    public void StopGrabbing()
+    {
+        TryingToGrab = false;
+        IsGrabbing = false;
+        grabbedObject = null;
+        StopCoroutine(GrabCourutine()); // Just incase the grab grace-period is still active
     }
 
     public void Grabbing()
