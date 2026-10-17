@@ -150,9 +150,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1fd32e894d86f187bdf18c008e576b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FieldOfView: 70
+  FieldOfViewWalk: 0
+  FieldOfViewSprint: 110
   CameraSensitivity: 0.2
   MaxGrabTurn: 120
+  ChangeInFovSpeed: 5
 --- !u!1 &4649648745574657803
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,6 +276,7 @@ GameObject:
   - component: {fileID: 4950781084131155069}
   - component: {fileID: 982089193368090778}
   - component: {fileID: 5099084345225884126}
+  - component: {fileID: 5595538470483964646}
   - component: {fileID: 7169433949866559236}
   - component: {fileID: 3603950144839542892}
   - component: {fileID: 5123216637379527289}
@@ -314,8 +317,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 063b70926bf3903e0928a727c0bb00d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastCheckpoint: {fileID: 0}
+  playerCamera: {fileID: 1713692115133922723}
   startingCheckpoint: {fileID: 0}
+  lastCheckpoint: {fileID: 0}
 --- !u!114 &5099084345225884126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,8 +333,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerCamera: {fileID: 1713692115133922723}
-  MovementManager: {fileID: 7169433949866559236}
   pauseMenu: {fileID: 0}
+--- !u!114 &5595538470483964646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5623054720739054339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6234a5adfaa768444b13872d24dbdd6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GrabMask:
+    serializedVersion: 2
+    m_Bits: 8
+  EasingSpeed: 5
+  CameraOffset: {x: 0, y: 1.5, z: 0}
+  GrabGracePeriod: 0.5
+  grabbedObject: {fileID: 0}
+  IsGrabbing: 0
 --- !u!114 &7169433949866559236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,7 +366,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13811adbd1125cfd99193ef997820c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerGrabManager: {fileID: 3603950144839542892}
+  PlayerGrabManager: {fileID: 5595538470483964646}
+  playerCharacter: {fileID: 0}
   DefaultLMask:
     serializedVersion: 2
     m_Bits: 1
@@ -351,6 +375,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   WalkSpeed: 4
+  RunSpeed: 10
   JumpPower: 5
   SlopeInfluence: 0.8
   SlopeLimit: 0.5

@@ -30,14 +30,13 @@ public class MovementManager : MonoBehaviour
         playerCharacter = GetComponent<PlayerCharacter>();
         globalSounds = GlobalSounds.GetGlobalSounds();
         Assert.IsNotNull(PlayerBody, "Mreow :3; mlm looking for twink");
-<<<<<<< HEAD
+
         
 
         MovementDirection = Vector3.zero;
         InputDirection = Vector3.zero;
         MoveSpeed = WalkSpeed;
-=======
->>>>>>> edcdac81f96dd3c47127d8aeb9cd1042caef06dc
+
     }
 
     public bool IsGrounded()
@@ -87,11 +86,10 @@ public class MovementManager : MonoBehaviour
     {
         MovementDirection = transform.forward * InputDirection.y;
         MovementDirection += transform.right * InputDirection.x;
-<<<<<<< HEAD
+
 
         MovementDirection *= MoveSpeed;
-=======
->>>>>>> edcdac81f96dd3c47127d8aeb9cd1042caef06dc
+
         
         MovementDirection *= WalkSpeed;
 
