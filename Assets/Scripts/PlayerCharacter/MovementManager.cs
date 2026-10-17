@@ -87,11 +87,7 @@ public class MovementManager : MonoBehaviour
         MovementDirection = transform.forward * InputDirection.y;
         MovementDirection += transform.right * InputDirection.x;
 
-
         MovementDirection *= MoveSpeed;
-
-        
-        MovementDirection *= WalkSpeed;
 
         if (IsGrounded())
         {
