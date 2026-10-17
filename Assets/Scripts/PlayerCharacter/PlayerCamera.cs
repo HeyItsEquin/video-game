@@ -2,20 +2,24 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    [SerializeField] private float FieldOfView = 70f;
+    [SerializeField] private float FieldOfViewWalk;
+    [SerializeField] private float FieldOfViewSprint;
 
     [Range(0, 1.0f)]
     [SerializeField] private float CameraSensitivity = 0.4f;
     [SerializeField] private float MaxGrabTurn = 0.5f;
+    [SerializeField] private float ChangeInFovSpeed;
 
     private MovementManager PlayerMovementManager;
 
     private float CameraSensitivityFactor;
     private float MinSensitivity = 0.05f;
     private float MaxSensitivity = 2.0f;
+    private float FieldOfView;
 
     private Vector3 CameraRotation;
     private Camera Camera;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,7 +28,8 @@ public class PlayerCamera : MonoBehaviour
         CameraRotation = Vector3.zero;
 
         Camera = GetComponent<Camera>();
-        Camera.fieldOfView = FieldOfView;
+        FieldOfView = Camera.fieldOfView;
+        FieldOfViewWalk = FieldOfView;
         PlayerMovementManager = transform.parent.GetComponent<MovementManager>();
 
         SetCameraSensitivity(CameraSensitivity);
@@ -76,6 +81,7 @@ public class PlayerCamera : MonoBehaviour
     void Update()
     {
         // SetCameraSensitivity(CameraSensitivity);
+        Camera.fieldOfView = Mathf.Lerp(Camera.fieldOfView, FieldOfView, Time.deltaTime * ChangeInFovSpeed);
     }
 
     float GrabClamp(float GrabAngle)
@@ -86,5 +92,10 @@ public class PlayerCamera : MonoBehaviour
         GrabAngle = angleOfGrab + clampedAngleOfGrab;
 
         return GrabAngle;
+    }
+
+    public void ChangeFovToSprint(bool sprint) 
+    {
+        FieldOfView = sprint ? FieldOfViewSprint : FieldOfViewWalk;
     }
 }

@@ -24,7 +24,7 @@ public class PlayerInputManager : MonoBehaviour
     public void OnLook(InputValue inputVal)
     {
         if (PauseManager.IsPaused()) return;
-        
+
         var input = inputVal.Get<Vector2>();
         PlayerCamera.Rotate(input);
     }
@@ -52,10 +52,15 @@ public class PlayerInputManager : MonoBehaviour
 
     public void OnSuicide()
     {
-        playerCharacter.ResetState();    
+        playerCharacter.ResetState();
     }
 
     // Update is called once per frame
+
+    public void OnSprint(InputValue pushed)
+    {
+        MovementManager.Sprint(pushed.Get<float>());
+    }
     void Update()
     {
         

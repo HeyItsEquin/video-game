@@ -4,9 +4,12 @@ using RotaryHeart.Lib;
 public class MovementManager : MonoBehaviour
 {
     public GrabManager PlayerGrabManager;
+    public PlayerCharacter playerCharacter;
+    private GlobalSounds globalSounds;
     [SerializeField] private LayerMask DefaultLMask;
     [SerializeField] private LayerMask GrabMask;
-    [SerializeField] private float WalkSpeed = 6f;
+    [SerializeField] private float WalkSpeed = 4f;
+    [SerializeField] private float RunSpeed = 10f;
     [SerializeField] private float JumpPower = 25f;
     [SerializeField] private float SlopeInfluence = 0.5f;
     [SerializeField] private float SlopeLimit = 0.5f;
@@ -18,15 +21,20 @@ public class MovementManager : MonoBehaviour
     private Vector3 InputDirection;
 
     private RaycastHit groundHit;
+    private float MoveSpeed;
 
 
     void Start()
     {
         PlayerBody = GetComponent<Rigidbody>();
+        playerCharacter = GetComponent<PlayerCharacter>();
+        globalSounds = GlobalSounds.GetGlobalSounds();
         Assert.IsNotNull(PlayerBody, "Mreow :3; mlm looking for twink");
+        
 
         MovementDirection = Vector3.zero;
         InputDirection = Vector3.zero;
+        MoveSpeed = WalkSpeed;
     }
 
     public bool IsGrounded()
@@ -60,10 +68,12 @@ public class MovementManager : MonoBehaviour
             InputDirection.y = GrabOffSpeed;
             InputDirection.x = 0;
             PlayerBody.linearVelocity += Vector3.up * JumpPower;
+            globalSounds.PlayRandomized(globalSounds.jumpSound, 0.9f, 1);
         }
         if (IsGrounded())
         {
             PlayerBody.linearVelocity += Vector3.up * JumpPower;
+            globalSounds.PlayRandomized(globalSounds.jumpSound, 0.9f, 1);
         }
         else         {
             Debug.Log("Not grounded");
@@ -75,7 +85,7 @@ public class MovementManager : MonoBehaviour
         MovementDirection = transform.forward * InputDirection.y;
         MovementDirection += transform.right * InputDirection.x;
 
-        MovementDirection *= WalkSpeed;
+        MovementDirection *= MoveSpeed;
         
         if (IsGrounded())
         {
@@ -127,5 +137,16 @@ public class MovementManager : MonoBehaviour
         
 
         Debug.DrawRay(transform.position, PlayerBody.linearVelocity, Color.green);
+    }
+
+    public void Sprint(float pushed)
+    {
+        // Checks if the amount pushed down is enough to sprint
+        // if true sprint else walk
+        MoveSpeed = pushed > 0.5 ? RunSpeed : WalkSpeed;
+        if (PlayerGrabManager.IsGrabbing)
+            return;
+        playerCharacter.playerCamera.ChangeFovToSprint(MoveSpeed == RunSpeed);
+        
     }
 }

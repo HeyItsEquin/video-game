@@ -6,6 +6,7 @@ public class GlobalSounds : MonoBehaviour
     [SerializeField] public AudioSource MenuButtonClick;
     [SerializeField] public AudioSource MenuButtonHover;
     [SerializeField] public AudioSource AmbientWind;
+    public AudioSource jumpSound;
 
     public void PlaySound(AudioSource source, float pitch = 1.0f, float volume = 1.0f, bool loop = false)
     {

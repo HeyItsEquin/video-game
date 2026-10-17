@@ -52,6 +52,7 @@ public class GrabManager : MonoBehaviour
             grabbedObject = grabColliders[0].gameObject;
             TryingToGrab = false;
         }
+        movementManager.playerCharacter.playerCamera.ChangeFovToSprint(false);
     }
 
     public void StopGrabbing()

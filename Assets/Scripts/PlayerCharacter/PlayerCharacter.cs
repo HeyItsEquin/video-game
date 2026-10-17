@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerCharacter : MonoBehaviour
 {
-    [SerializeField] private PlayerCamera playerCamera;
+    public PlayerCamera playerCamera;
     [SerializeField] private Checkpoint startingCheckpoint;
 
     private Rigidbody playerBody;
