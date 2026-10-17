@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.Assertions;
-using RotaryHeart.Lib;
+using System;
 public class MovementManager : MonoBehaviour
 {
     public GrabManager PlayerGrabManager;
@@ -17,8 +17,8 @@ public class MovementManager : MonoBehaviour
 
     private Rigidbody PlayerBody;
 
-    private Vector3 MovementDirection;
-    private Vector3 InputDirection;
+    private Vector3 MovementDirection = Vector3.zero;
+    private Vector3 InputDirection = Vector3.zero;
 
     private RaycastHit groundHit;
     private float MoveSpeed;
@@ -30,11 +30,14 @@ public class MovementManager : MonoBehaviour
         playerCharacter = GetComponent<PlayerCharacter>();
         globalSounds = GlobalSounds.GetGlobalSounds();
         Assert.IsNotNull(PlayerBody, "Mreow :3; mlm looking for twink");
+<<<<<<< HEAD
         
 
         MovementDirection = Vector3.zero;
         InputDirection = Vector3.zero;
         MoveSpeed = WalkSpeed;
+=======
+>>>>>>> edcdac81f96dd3c47127d8aeb9cd1042caef06dc
     }
 
     public bool IsGrounded()
@@ -65,17 +68,17 @@ public class MovementManager : MonoBehaviour
         {
             // sets the player to not grabbing and jumps off the object they are grabbing
             PlayerGrabManager.IsGrabbing = false;
-            InputDirection.y = GrabOffSpeed;
-            InputDirection.x = 0;
             PlayerBody.linearVelocity += Vector3.up * JumpPower;
             globalSounds.PlayRandomized(globalSounds.jumpSound, 0.9f, 1);
         }
+        
         if (IsGrounded())
         {
             PlayerBody.linearVelocity += Vector3.up * JumpPower;
             globalSounds.PlayRandomized(globalSounds.jumpSound, 0.9f, 1);
         }
-        else         {
+        else 
+        {
             Debug.Log("Not grounded");
         }
     }
@@ -84,9 +87,14 @@ public class MovementManager : MonoBehaviour
     {
         MovementDirection = transform.forward * InputDirection.y;
         MovementDirection += transform.right * InputDirection.x;
+<<<<<<< HEAD
 
         MovementDirection *= MoveSpeed;
+=======
+>>>>>>> edcdac81f96dd3c47127d8aeb9cd1042caef06dc
         
+        MovementDirection *= WalkSpeed;
+
         if (IsGrounded())
         {
             // if player is grounded use slopes to influence the movement direction
