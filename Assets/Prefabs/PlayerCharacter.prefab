@@ -50,6 +50,10 @@ MonoBehaviour:
   CameraSensitivity: 0.4
   MaxGrabTurn: 0.5
   ChangeInFovSpeed: 0
+  cameraChangeAmplitude: 10
+  catchUpSpeed: 5
+  stepFrequency: 2
+  stepAmount: 1
 --- !u!1 &3163528831585921969
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 063b70926bf3903e0928a727c0bb00d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 0}
+  playerCamera: {fileID: 1870858812206658749}
   startingCheckpoint: {fileID: 0}
   lastCheckpoint: {fileID: 0}
 --- !u!114 &5099084345225884126
@@ -365,7 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32bb2892244fd90b4b3399c950b8a741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerCamera: {fileID: 0}
+  PlayerCamera: {fileID: 1870858812206658749}
   pauseMenu: {fileID: 0}
 --- !u!114 &3443220712295648123
 MonoBehaviour:
