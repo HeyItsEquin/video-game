@@ -14,9 +14,11 @@ public class PauseMenu : MonoBehaviour
 
     private Button quitButton;
     private Button resumeButton;
-    private Slider sensSlider;
+    private SliderInt sensSlider;
+    private SliderInt maxFpsSlider;
 
-    private float sensValue = 0.5f;
+    private int sensValue = 5;
+    private int maxFpsValue = 120;
 
     private GlobalSounds globalSounds;
 
@@ -26,9 +28,13 @@ public class PauseMenu : MonoBehaviour
         Document = GetComponent<UIDocument>();
         root = Document.rootVisualElement;
 
-        sensSlider = root.Q<Slider>("Sens");
+        sensSlider = root.Q<SliderInt>("Sens");
         sensSlider.value = sensValue;
         sensSlider.RegisterValueChangedCallback(OnSensSliderValueChanged);
+
+        maxFpsSlider = root.Q<SliderInt>("MaxFPS");
+        maxFpsSlider.value = maxFpsValue;
+        maxFpsSlider.RegisterValueChangedCallback(OnMaxFpsSliderValueChanged);
 
         resumeButton = root.Q<Button>("RESUME");
         resumeButton.RegisterCallback<ClickEvent>(OnButtonClick);
@@ -103,11 +109,19 @@ public class PauseMenu : MonoBehaviour
         Application.Quit();
     }
 
-    void OnSensSliderValueChanged(ChangeEvent<float> sens)
+    void OnSensSliderValueChanged(ChangeEvent<int> sens)
     {
         OnButtonHover(null);
-        playerCamera.SetCameraSensitivity(sens.newValue);
+        playerCamera.SetCameraSensitivity((float)sens.newValue/10);
         sensValue = sens.newValue;
+    }
+
+    void OnMaxFpsSliderValueChanged(ChangeEvent<int> fps)
+    {
+        OnButtonHover(null);
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = fps.newValue;
+        maxFpsValue = fps.newValue;
     }
 
     void OnButtonClick(object evt)

@@ -2,36 +2,41 @@
     <Style src="project://database/Assets/UI%20Documents/StyleSheet.uss?fileID=7433441132597879392&amp;guid=2fa403eea1c40c9429be14b222be08c2&amp;type=3#StyleSheet" />
     <ui:VisualElement name="Root" style="flex-grow: 1;">
         <ui:VisualElement name="BasePauseMenu" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.65); margin-top: 79px; margin-right: 79px; margin-bottom: 79px; margin-left: 79px; border-top-left-radius: 128px; border-top-right-radius: 128px; border-bottom-right-radius: 128px; border-bottom-left-radius: 128px;">
-            <ui:Label text="PAUSED" name="PauseText" class="unity-label" style="margin-top: 35px; margin-right: 35px; margin-bottom: 35px; margin-left: 35px; font-size: 98px; color: rgb(255, 255, 255);" />
-            <ui:Slider label="Sensitivity" value="42" high-value="1" name="Sens" class="unity-label" style="font-size: 28px; margin-right: 445px; margin-left: 445px;" />
+            <ui:Label text="PAUSED" name="PauseText" class="unity-label" style="margin-top: 15px; margin-right: 15px; margin-bottom: 15px; margin-left: 15px; font-size: 79px; color: rgb(255, 255, 255);" />
+            <ui:VisualElement name="Options" style="flex-grow: 1;">
+                <ui:ScrollView horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden">
+                    <ui:SliderInt label="Sensitivity" value="42" high-value="10" name="Sens" show-input-field="true" page-size="0" low-value="1" class="option-slider" style="padding-top: 4px; padding-right: 2px; padding-bottom: 4px; padding-left: 1px; margin-top: 4px; margin-right: 445px; margin-left: 445px;" />
+                    <ui:SliderInt label="Max FPS" value="42" high-value="240" name="MaxFPS" low-value="30" fill="false" show-input-field="true" inverted="false" class="option-slider" style="align-items: auto; margin-top: 4px; margin-right: 445px; margin-left: 445px; padding-top: 4px; padding-right: 2px; padding-bottom: 4px; padding-left: 1px;" />
+                </ui:ScrollView>
+            </ui:VisualElement>
             <ui:VisualElement name="Controls" style="flex-grow: 1; margin-top: 17px; margin-right: 261px; margin-bottom: 17px; margin-left: 261px; border-right-width: 120px; border-left-width: 120px;">
-                <ui:Label text="Controls" name="Label" class="unity-label" style="font-size: 79px; -unity-text-outline-color: rgb(0, 0, 0); color: rgb(255, 255, 255);" />
+                <ui:Label text="Controls" name="Label" class="unity-label" style="font-size: 60px; -unity-text-outline-color: rgb(0, 0, 0); color: rgb(255, 255, 255);" />
                 <ui:ScrollView enabled="true" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" style="font-size: 151px;">
                     <ui:VisualElement name="ControlElement" style="flex-grow: 1; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; flex-direction: row;">
-                        <ui:Label text="Space:" name="Button" class="unty-label unity-label unity-labelControl" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-left; min-width: 50px; flex-basis: 50%;" />
-                        <ui:Label text="Jump" name="Action" class="unty-label unity-labelControl" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-right; min-width: 50px; flex-basis: 50%;" />
+                        <ui:Label text="Space:" name="Button" class="unty-label unity-label unity-labelControl" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-left; min-width: 50px; flex-basis: 50%; font-size: 50px;" />
+                        <ui:Label text="Jump" name="Action" class="unty-label unity-labelControl" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-right; min-width: 50px; flex-basis: 50%; font-size: 50px;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="ControlElement" style="flex-grow: 1; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; flex-direction: row;">
-                        <ui:Label text="WASD:" name="Button" class="unity-labelControl" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-left; min-width: 50px; flex-basis: 50%;" />
-                        <ui:Label text="Move" name="Action" class="unity-labelControl" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-right; min-width: 50px; flex-basis: 50%;" />
+                        <ui:Label text="WASD:" name="Button" class="unity-labelControl" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-left; min-width: 50px; flex-basis: 50%; font-size: 50px;" />
+                        <ui:Label text="Move" name="Action" class="unity-labelControl" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-right; min-width: 50px; flex-basis: 50%; font-size: 50px;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="ControlElement" style="flex-grow: 1; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; flex-direction: row;">
-                        <ui:Label text="Left Click:" name="Button" class="unity-labelControl" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-left; min-width: 50px; flex-basis: 50%;" />
-                        <ui:Label text="Climb" name="Action" class="unity-labelControl" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-right; min-width: 50px; flex-basis: 50%;" />
+                        <ui:Label text="Left Click:" name="Button" class="unity-labelControl" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-left; min-width: 50px; flex-basis: 50%; font-size: 50px;" />
+                        <ui:Label text="Climb" name="Action" class="unity-labelControl" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-right; min-width: 50px; flex-basis: 50%; font-size: 50px;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="ControlElement" style="flex-grow: 1; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; flex-direction: row;">
-                        <ui:Label text="R:" name="Button" class="unity-labelControl" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-left; min-width: 50px; flex-basis: 50%;" />
-                        <ui:Label text="Reset" name="Action" class="unity-labelControl" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-right; min-width: 50px; flex-basis: 50%;" />
+                        <ui:Label text="R:" name="Button" class="unity-labelControl" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-left; min-width: 50px; flex-basis: 50%; font-size: 50px;" />
+                        <ui:Label text="Reset" name="Action" class="unity-labelControl" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-right; min-width: 50px; flex-basis: 50%; font-size: 50px;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="ControlElement" style="flex-grow: 1; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; flex-direction: row;">
                         <ui:Label text="Shift:" name="Button" class="unity-labelControl" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-left; min-width: 50px; flex-basis: 50%;" />
-                        <ui:Label text="Run" name="Action" class="unity-labelControl" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-right; min-width: 50px; flex-basis: 50%;" />
+                        <ui:Label text="Run" name="Action" class="unity-labelControl" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); -unity-text-align: upper-right; min-width: 50px; flex-basis: 50%; font-size: 50px;" />
                     </ui:VisualElement>
                 </ui:ScrollView>
             </ui:VisualElement>
             <ui:VisualElement name="Buttons" style="flex-grow: 1; flex-direction: row; flex-shrink: 0; border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px;">
-                <ui:Button text="Resume" name="RESUME" class="unity-button unity-label" style="min-width: 50%; font-size: 124px;" />
-                <ui:Button text="Quit" name="QUIT" class="unity-button unity-label" style="min-width: 50%; font-size: 124px;" />
+                <ui:Button text="Resume" name="RESUME" class="unity-button unity-label" style="min-width: 50%; font-size: 80px; white-space: pre; align-self: auto; align-items: auto; -unity-text-align: upper-right; padding-right: 82px;" />
+                <ui:Button text="Quit" name="QUIT" class="unity-button unity-label" style="min-width: 50%; font-size: 80px; -unity-text-align: upper-left; padding-left: 81px;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

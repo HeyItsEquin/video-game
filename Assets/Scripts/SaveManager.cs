@@ -11,7 +11,8 @@ public readonly struct OptionKey<T>
 
 public static class Opts
 {
-    public static readonly OptionKey<float> CameraSensitivity = new("controls.sensitivity", 0.5f);
+    public static readonly OptionKey<int> CameraSensitivity = new("controls.sensitivity", 5);
+    public static readonly OptionKey<string> CurrentLevelId = new("player.currentLevel", "l0");
     public static readonly OptionKey<Checkpoint> PlayerLastCheckpoint = new("player.lastCheckpoint", null);
 }
 
