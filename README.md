@@ -4,7 +4,7 @@ Very early demo for a game about, well... climbing.
 Made with Unity.
 
 ## How to play:
-  Download and unzip the latest releaze
+  Download and unzip the latest release
   Launch the game
 
 ### Controls:
