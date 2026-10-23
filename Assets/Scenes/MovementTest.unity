@@ -3672,6 +3672,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 982089193368090778, guid: d2cf3a208b31812ddabe68e4bfcbf3d9, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 622244504}
+    - target: {fileID: 1870858812206658749, guid: d2cf3a208b31812ddabe68e4bfcbf3d9, type: 3}
+      propertyPath: stepAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870858812206658749, guid: d2cf3a208b31812ddabe68e4bfcbf3d9, type: 3}
+      propertyPath: catchUpSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870858812206658749, guid: d2cf3a208b31812ddabe68e4bfcbf3d9, type: 3}
+      propertyPath: stepFrequency
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870858812206658749, guid: d2cf3a208b31812ddabe68e4bfcbf3d9, type: 3}
+      propertyPath: cameraChangeAmplitude
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4950781084131155069, guid: d2cf3a208b31812ddabe68e4bfcbf3d9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3716,6 +3736,10 @@ PrefabInstance:
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 2061708711600167157}
+    - target: {fileID: 5099084345225884126, guid: d2cf3a208b31812ddabe68e4bfcbf3d9, type: 3}
+      propertyPath: PlayerCamera
+      value: 
+      objectReference: {fileID: 622244504}
     - target: {fileID: 5623054720739054339, guid: d2cf3a208b31812ddabe68e4bfcbf3d9, type: 3}
       propertyPath: m_Name
       value: PlayerCharacter
@@ -4550,6 +4574,17 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &622244504 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1870858812206658749, guid: d2cf3a208b31812ddabe68e4bfcbf3d9, type: 3}
+  m_PrefabInstance: {fileID: 547859017}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1fd32e894d86f187bdf18c008e576b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &646651599
 Mesh:
   m_ObjectHideFlags: 0
@@ -18056,7 +18091,7 @@ PrefabInstance:
     - target: {fileID: 7260082901113595011, guid: f7524988b053b44e39a0a16c4b5ce19c, type: 3}
       propertyPath: playerCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 622244504}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

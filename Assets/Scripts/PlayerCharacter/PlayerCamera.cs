@@ -9,8 +9,13 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float CameraSensitivity = 0.4f;
     [SerializeField] private float MaxGrabTurn = 0.5f;
     [SerializeField] private float ChangeInFovSpeed;
+    [SerializeField] private float cameraChangeAmplitude;
+    [SerializeField] private float catchUpSpeed;
+    [SerializeField] private float stepFrequency;
+    [SerializeField] private float stepAmount;
 
     private MovementManager PlayerMovementManager;
+    private Rigidbody playerRB;
 
     private float CameraSensitivityFactor;
     private float MinSensitivity = 0.05f;
@@ -19,6 +24,8 @@ public class PlayerCamera : MonoBehaviour
 
     private Vector3 CameraRotation;
     private Camera Camera;
+    private GameObject cameraObject;
+    private Vector3 cameraOldVel;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,10 +34,12 @@ public class PlayerCamera : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         CameraRotation = Vector3.zero;
 
-        Camera = GetComponent<Camera>();
+        cameraObject = transform.GetChild(0).gameObject;
+        Camera = cameraObject.GetComponent<Camera>();
         FieldOfView = Camera.fieldOfView;
         FieldOfViewWalk = FieldOfView;
         PlayerMovementManager = transform.parent.GetComponent<MovementManager>();
+        playerRB = PlayerMovementManager.GetComponent<Rigidbody>();
 
         SetCameraSensitivity(CameraSensitivity);
     }
@@ -82,6 +91,7 @@ public class PlayerCamera : MonoBehaviour
     {
         // SetCameraSensitivity(CameraSensitivity);
         Camera.fieldOfView = Mathf.Lerp(Camera.fieldOfView, FieldOfView, Time.deltaTime * ChangeInFovSpeed);
+        CameraBob();
     }
 
     float GrabClamp(float GrabAngle)
@@ -97,5 +107,33 @@ public class PlayerCamera : MonoBehaviour
     public void ChangeFovToSprint(bool sprint) 
     {
         FieldOfView = sprint ? FieldOfViewSprint : FieldOfViewWalk;
+    }
+
+    void CameraBob()
+    {
+        Vector3 velocity = playerRB.linearVelocity * Time.deltaTime;
+        if (PlayerMovementManager.IsGrounded() || true)
+        {
+            velocity.y = 0f;
+            cameraObject.transform.localPosition = StepCamera(velocity.magnitude);
+        }
+        //velocity *= cameraChangeAmplitude;
+        //cameraOldVel = Vector3.Lerp(cameraOldVel, velocity, Time.deltaTime * catchUpSpeed);
+
+        //var newChangeInPos = velocity - cameraOldVel;
+        //newChangeInPos.y += 1.5f;
+        //transform.position = transform.parent.position + newChangeInPos;
+
+
+    }
+
+    Vector3 StepCamera(float vel)
+    {
+        
+        Vector3 pos = Vector3.zero;
+        pos.y += Mathf.Sin(Time.time * stepFrequency) * stepAmount;
+        pos.x += Mathf.Cos(Time.time * stepFrequency * 2) * stepAmount * 2;
+        pos *= vel;
+        return pos;
     }
 }
