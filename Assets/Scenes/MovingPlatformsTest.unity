@@ -15285,6 +15285,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 502024544482879436, guid: 7e47c9aa586e7036e984671a386b0519, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 596010822573643074, guid: 7e47c9aa586e7036e984671a386b0519, type: 3}
       propertyPath: m_LocalPosition.z
       value: 4.32
@@ -15295,6 +15299,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371965649799055757, guid: 7e47c9aa586e7036e984671a386b0519, type: 3}
       propertyPath: m_Name
+      value: MovingPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 5371965649799055757, guid: 7e47c9aa586e7036e984671a386b0519, type: 3}
+      propertyPath: m_TagString
       value: MovingPlatform
       objectReference: {fileID: 0}
     - target: {fileID: 6576859990332151915, guid: 7e47c9aa586e7036e984671a386b0519, type: 3}

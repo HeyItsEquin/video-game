@@ -100,6 +100,14 @@ public class MovementManager : MonoBehaviour
             MovementDirection.y = PlayerBody.linearVelocity.y;
         }
 
+        // TODO: Figure out
+        if (groundHit.collider != null && groundHit.collider.gameObject.CompareTag("MovingPlatform"))
+        {
+            var platform = groundHit.collider.GetComponentInParent<MovingPlatform>();
+
+                return MovementDirection + platform.GetVelocityVector();
+        }
+
         return MovementDirection;
     }
 
