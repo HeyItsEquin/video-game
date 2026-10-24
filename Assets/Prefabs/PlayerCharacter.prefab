@@ -355,6 +355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 1870858812206658749}
+  animationManager: {fileID: 0}
   startingCheckpoint: {fileID: 0}
   lastCheckpoint: {fileID: 0}
 --- !u!114 &5099084345225884126
