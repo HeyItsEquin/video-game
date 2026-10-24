@@ -16,7 +16,7 @@ public class MovingPlatform : MonoBehaviour
 
     Vector3 GetTargetPosition()
     {
-        if (targetPosition.Equals(Vector3.zero))
+        if (targetPosition == Vector3.zero)
         {
             return target.transform.localPosition;
         }
@@ -24,6 +24,15 @@ public class MovingPlatform : MonoBehaviour
         {
             return Vector3.zero;
         }
+    }
+
+    public Vector3 GetVelocityVector()
+    {
+        if (targetPosition == target.transform.localPosition)
+        {
+            return Vector3.Normalize(target.transform.localPosition) * moveSpeed;
+        }
+        return Vector3.Normalize(-target.transform.localPosition) * moveSpeed;
     }
 
     void Update()
