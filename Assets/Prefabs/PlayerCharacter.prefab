@@ -46,14 +46,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FieldOfViewWalk: 0
-  FieldOfViewSprint: 0
+  FieldOfViewSprint: 100
   CameraSensitivity: 0.4
-  MaxGrabTurn: 0.5
-  ChangeInFovSpeed: 0
-  cameraChangeAmplitude: 10
-  catchUpSpeed: 5
-  stepFrequency: 2
-  stepAmount: 1
+  MaxGrabTurn: 110
+  ChangeInFovSpeed: 5
+  cameraChangeAmplitude: 0
+  catchUpSpeed: 0
+  stepFrequency: 0
+  stepAmount: 0
 --- !u!1 &3163528831585921969
 GameObject:
   m_ObjectHideFlags: 0

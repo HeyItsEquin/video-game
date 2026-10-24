@@ -17,7 +17,7 @@ public class PlayerCamera : MonoBehaviour
     private MovementManager PlayerMovementManager;
     private Rigidbody playerRB;
 
-    private float CameraSensitivityFactor;
+    private float CameraSensitivityFactor = 0.5f;
     private float MinSensitivity = 0.05f;
     private float MaxSensitivity = 2.0f;
     private float FieldOfView;
@@ -40,8 +40,6 @@ public class PlayerCamera : MonoBehaviour
         FieldOfViewWalk = FieldOfView;
         PlayerMovementManager = transform.parent.GetComponent<MovementManager>();
         playerRB = PlayerMovementManager.GetComponent<Rigidbody>();
-
-        SetCameraSensitivity(CameraSensitivity);
     }
 
     public void Rotate(Vector3 input)
