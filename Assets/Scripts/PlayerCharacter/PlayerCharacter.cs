@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerCharacter : MonoBehaviour
 {
     public PlayerCamera playerCamera;
+    public AnimationManager animationManager;
     [SerializeField] private Checkpoint startingCheckpoint;
 
     private Rigidbody playerBody;
@@ -15,6 +16,7 @@ public class PlayerCharacter : MonoBehaviour
     {
         playerBody = GetComponent<Rigidbody>();
         movementManager = GetComponent<MovementManager>();
+        animationManager = GetComponent<AnimationManager>();
         //lastCheckpoint = SaveManager.Instance.Get(Opts.PlayerLastCheckpoint);
     }
 
