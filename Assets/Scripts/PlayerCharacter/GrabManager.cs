@@ -36,6 +36,7 @@ public class GrabManager : MonoBehaviour
         if (IsGrabbing)
         {
             IsGrabbing = false;
+            movementManager.playerCharacter.animationManager.animator.SetBool("jumping", true);
             return;
         }
         if (!TryingToGrab) 

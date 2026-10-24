@@ -77,7 +77,6 @@ public class MovementManager : MonoBehaviour
         {
             PlayerBody.linearVelocity += Vector3.up * JumpPower;
             globalSounds.PlayRandomized(globalSounds.jumpSound, 0.9f, 1);
-            playerCharacter.animationManager.Rendering(true);
             playerCharacter.animationManager.PlayAnimation("Jump");
             playerCharacter.animationManager.animator.SetBool("jumping", true);
         }
@@ -149,7 +148,6 @@ public class MovementManager : MonoBehaviour
         {
             VerticalAlignPlayer();
             playerCharacter.animationManager.animator.SetBool("jumping", false);
-            playerCharacter.animationManager.Rendering(MoveSpeed > RunSpeed-1);
         }
         
 
@@ -165,17 +163,14 @@ public class MovementManager : MonoBehaviour
         if (PlayerGrabManager.IsGrabbing)
             return;
         playerCharacter.playerCamera.ChangeFovToSprint(MoveSpeed == RunSpeed);
-
+        if (!IsGrounded())
+            return;
         if (pushed > 0.5)
         {
             playerCharacter.animationManager.PlayAnimation("Run");
-            playerCharacter.animationManager.animator.SetFloat("velocity", MoveSpeed/RunSpeed);
-            playerCharacter.animationManager.Rendering(true);
+            
         }
-        else
-        {
-            playerCharacter.animationManager.Rendering(false);
-        }
+        playerCharacter.animationManager.animator.SetFloat("velocity", MoveSpeed / RunSpeed);
 
     }
 }
