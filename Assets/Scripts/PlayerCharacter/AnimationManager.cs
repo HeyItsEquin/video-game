@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class AnimationManager : MonoBehaviour
 {
-    Animator animator;
+    public Animator animator;
+    [SerializeField] SkinnedMeshRenderer meshRenderer;
     MovementManager movementManager;
 
     void Start()
@@ -15,5 +16,10 @@ public class AnimationManager : MonoBehaviour
     public void PlayAnimation(string animationName)
     {
         animator.Play(animationName);
+    }
+
+    public void Rendering(bool render)
+    {
+        meshRenderer.enabled = render;
     }
 }

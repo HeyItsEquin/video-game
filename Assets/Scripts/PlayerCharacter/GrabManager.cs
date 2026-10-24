@@ -8,6 +8,7 @@ public class GrabManager : MonoBehaviour
     [SerializeField] private float EasingSpeed = 5f;
     [SerializeField] private Vector3 CameraOffset;
     [SerializeField] private float GrabGracePeriod = 0.5f;
+    [SerializeField] private float grabOffset;
     public GameObject grabbedObject;
 
     bool TryingToGrab = false;
@@ -51,8 +52,11 @@ public class GrabManager : MonoBehaviour
             IsGrabbing = true;
             grabbedObject = grabColliders[0].gameObject;
             TryingToGrab = false;
+            movementManager.playerCharacter.playerCamera.ChangeFovToSprint(false);
+            movementManager.playerCharacter.animationManager.PlayAnimation("Grab");
+            movementManager.playerCharacter.animationManager.animator.SetBool("jumping", false);
         }
-        movementManager.playerCharacter.playerCamera.ChangeFovToSprint(false);
+        
     }
 
     public void StopGrabbing()
@@ -70,7 +74,7 @@ public class GrabManager : MonoBehaviour
         {
             // Quadratic curve for move speed
             var t = Time.deltaTime * (EasingSpeed*EasingSpeed);
-            transform.position = Vector3.Lerp(transform.position, grabbedObject.transform.position + grabbedObject.transform.forward - CameraOffset, t);
+            transform.position = Vector3.Lerp(transform.position, grabbedObject.transform.position + grabbedObject.transform.forward * grabOffset - CameraOffset, t);
         }
     }
 

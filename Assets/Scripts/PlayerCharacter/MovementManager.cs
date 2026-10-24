@@ -69,12 +69,17 @@ public class MovementManager : MonoBehaviour
             PlayerGrabManager.IsGrabbing = false;
             PlayerBody.linearVelocity += Vector3.up * JumpPower;
             globalSounds.PlayRandomized(globalSounds.jumpSound, 0.9f, 1);
+            playerCharacter.animationManager.PlayAnimation("Jump");
+            playerCharacter.animationManager.animator.SetBool("jumping", true);
         }
         
         if (IsGrounded())
         {
             PlayerBody.linearVelocity += Vector3.up * JumpPower;
             globalSounds.PlayRandomized(globalSounds.jumpSound, 0.9f, 1);
+            playerCharacter.animationManager.Rendering(true);
+            playerCharacter.animationManager.PlayAnimation("Jump");
+            playerCharacter.animationManager.animator.SetBool("jumping", true);
         }
         else 
         {
@@ -143,6 +148,8 @@ public class MovementManager : MonoBehaviour
         if (IsGrounded())
         {
             VerticalAlignPlayer();
+            playerCharacter.animationManager.animator.SetBool("jumping", false);
+            playerCharacter.animationManager.Rendering(MoveSpeed > RunSpeed-1);
         }
         
 
@@ -154,9 +161,21 @@ public class MovementManager : MonoBehaviour
         // Checks if the amount pushed down is enough to sprint
         // if true sprint else walk
         MoveSpeed = pushed > 0.5 ? RunSpeed : WalkSpeed;
+        
         if (PlayerGrabManager.IsGrabbing)
             return;
         playerCharacter.playerCamera.ChangeFovToSprint(MoveSpeed == RunSpeed);
-        
+
+        if (pushed > 0.5)
+        {
+            playerCharacter.animationManager.PlayAnimation("Run");
+            playerCharacter.animationManager.animator.SetFloat("velocity", MoveSpeed/RunSpeed);
+            playerCharacter.animationManager.Rendering(true);
+        }
+        else
+        {
+            playerCharacter.animationManager.Rendering(false);
+        }
+
     }
 }
