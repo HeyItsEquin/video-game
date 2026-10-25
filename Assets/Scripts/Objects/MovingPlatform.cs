@@ -2,48 +2,29 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    [SerializeField] private GameObject target;
-    [SerializeField] private GameObject platform;
+    [SerializeField] private Transform target;
+    [SerializeField] private Rigidbody platformBody;
+    [SerializeField] private float moveSpeed = 3f;
 
-    private Vector3 targetPosition;
+    private Vector3 startPos, endPos, goal;
+    public Vector3 Velocity { get; private set; }
 
-    private float moveSpeed = 3.0f;
-
-    void Ready()
+    void Start()
     {
-        targetPosition = target.transform.localPosition;
+        startPos = platformBody.position;
+        endPos = target.position;
+        goal = endPos;
     }
 
-    Vector3 GetTargetPosition()
+    void FixedUpdate()
     {
-        if (targetPosition == Vector3.zero)
-        {
-            return target.transform.localPosition;
-        }
-        else
-        {
-            return Vector3.zero;
-        }
-    }
+        var current = platformBody.position;
+        var next = Vector3.MoveTowards(current, goal, moveSpeed * Time.fixedDeltaTime);
 
-    public Vector3 GetVelocityVector()
-    {
-        if (targetPosition == target.transform.localPosition)
-        {
-            return Vector3.Normalize(target.transform.localPosition) * moveSpeed;
-        }
-        return Vector3.Normalize(-target.transform.localPosition) * moveSpeed;
-    }
+        Velocity = (next - current) / Time.fixedDeltaTime;
+        platformBody.MovePosition(next);
 
-    void Update()
-    {
-        float step = moveSpeed * Time.deltaTime;
-        
-        platform.transform.localPosition = Vector3.MoveTowards(platform.transform.localPosition, targetPosition, step);
-
-        if (Vector3.Distance(platform.transform.localPosition, targetPosition) < 0.01f)
-        {
-            targetPosition = GetTargetPosition();
-        }
+        if (next == goal)
+            goal = (goal == endPos) ? startPos : endPos;
     }
 }

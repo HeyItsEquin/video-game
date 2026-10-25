@@ -6,11 +6,8 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float FieldOfViewSprint;
 
     [Range(0, 1.0f)]
-    [SerializeField] private float CameraSensitivity = 0.4f;
     [SerializeField] private float MaxGrabTurn = 0.5f;
     [SerializeField] private float ChangeInFovSpeed;
-    [SerializeField] private float cameraChangeAmplitude;
-    [SerializeField] private float catchUpSpeed;
     [SerializeField] private float stepFrequency;
     [SerializeField] private float stepAmount;
 
@@ -26,8 +23,6 @@ public class PlayerCamera : MonoBehaviour
     private Vector3 CameraRotation;
     private Camera Camera;
     private GameObject cameraObject;
-    private Vector3 cameraOldVel;
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -91,7 +86,7 @@ public class PlayerCamera : MonoBehaviour
     {
         // SetCameraSensitivity(CameraSensitivity);
         Camera.fieldOfView = Mathf.Lerp(Camera.fieldOfView, FieldOfView, Time.deltaTime * ChangeInFovSpeed);
-        CameraBob();
+        // CameraBob();
     }
 
     float GrabClamp(float GrabAngle)
@@ -130,7 +125,6 @@ public class PlayerCamera : MonoBehaviour
 
     Vector3 StepCamera(float vel)
     {
-        
         Vector3 pos = Vector3.zero;
         pos.x += Mathf.Sin(Time.time * stepFrequency) * stepAmount;
         pos.y += Mathf.Cos(Time.time * stepFrequency * 2) * stepAmount * 2;
