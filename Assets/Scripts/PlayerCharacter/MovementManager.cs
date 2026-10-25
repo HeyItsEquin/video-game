@@ -1,7 +1,8 @@
+using System;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Assertions;
-
+using UnityEngine.InputSystem;
 using PhysExt = RotaryHeart.Lib.PhysicsExtension;
 
 public class MovementManager : MonoBehaviour
@@ -33,7 +34,8 @@ public class MovementManager : MonoBehaviour
     private bool grounded;
     private Vector3 groundVelocity;
     private Vector3 appliedGroundVelocity;
-    private float appliedVelocityY;
+
+    private bool shouldSprint;
 
     public bool IsGrounded() => grounded;
 
@@ -86,6 +88,9 @@ public class MovementManager : MonoBehaviour
     public void Move(Vector3 movementVec)
     {
         InputDirection = movementVec;
+
+        var sprintValue = GetComponent<PlayerInput>().actions.FindAction("Sprint").ReadValue<float>();
+        shouldSprint = !(movementVec == Vector3.zero);
     }
 
     public void Jump()
@@ -160,7 +165,7 @@ public class MovementManager : MonoBehaviour
         
         if (PlayerGrabManager.IsGrabbing)
             return;
-        playerCharacter.playerCamera.ChangeFovToSprint(MoveSpeed == RunSpeed);
+        playerCharacter.playerCamera.ChangeFovToSprint(MoveSpeed == RunSpeed && shouldSprint);
     }
 
     void FixedUpdate()

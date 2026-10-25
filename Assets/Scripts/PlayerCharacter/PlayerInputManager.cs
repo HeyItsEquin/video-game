@@ -32,6 +32,7 @@ public class PlayerInputManager : MonoBehaviour
     public void OnMove(InputValue inputVal)
     {
         var input = inputVal.Get<Vector2>();
+        MovementManager.Sprint(GetComponent<PlayerInput>().actions.FindAction("Sprint").ReadValue<float>());
         MovementManager.Move(input);
     }
 
@@ -54,8 +55,6 @@ public class PlayerInputManager : MonoBehaviour
     {
         playerCharacter.ResetState();
     }
-
-    // Update is called once per frame
 
     public void OnSprint(InputValue pushed)
     {
