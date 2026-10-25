@@ -1,5 +1,3 @@
-using System;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
@@ -61,7 +59,7 @@ public class MovementManager : MonoBehaviour
 
         bool hit = Physics.SphereCast(origin, r, Vector3.down, out groundHit, castDistance, DefaultLMask);
 
-        #if DEBUG
+        #if UNITY_EDITOR
         PhysExt.Physics.SphereCast(origin, r, Vector3.down, castDistance, PhysExt.PreviewCondition.Editor);
         #endif
 
@@ -88,8 +86,6 @@ public class MovementManager : MonoBehaviour
     public void Move(Vector3 movementVec)
     {
         InputDirection = movementVec;
-
-        var sprintValue = GetComponent<PlayerInput>().actions.FindAction("Sprint").ReadValue<float>();
         shouldSprint = !(movementVec == Vector3.zero);
     }
 
@@ -141,7 +137,7 @@ public class MovementManager : MonoBehaviour
         if (Mathf.Abs(groundSnapY - PlayerBody.position.y) > 0.15f) return;
 
         Vector3 p = PlayerBody.position;
-        p.y = groundHit.point.y;
+        p.y = groundSnapY;
         PlayerBody.position = p;
     }
 
