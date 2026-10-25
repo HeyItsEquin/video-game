@@ -443,7 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startOpen: 1
-  startScene: MovingPlatformsTest
+  startScene: MovementTest
   optionsMenu: {fileID: 1897788230}
   creditsMenu: {fileID: 3392273}
 --- !u!1 &1897788227
