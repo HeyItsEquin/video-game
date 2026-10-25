@@ -1,0 +1,16 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Documents/Stylesheets/TitleScreen.uss?fileID=7433441132597879392&amp;guid=3ca39efc98ced4f4b9440066ae698899&amp;type=3#TitleScreen" />
+    <ui:VisualElement name="Root" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Textures/misc/Title%20render.png?fileID=2800000&amp;guid=07d78cc8048be8f4a9b04a3eb2f4dfeb&amp;type=3#Title render&quot;);">
+        <ui:VisualElement name="MainWrapper" style="flex-grow: 1; justify-content: center;">
+            <ui:Label text="Untitled Climbing Game" name="Title" selectable="true" />
+            <ui:VisualElement name="MainPanel">
+                <ui:VisualElement name="MenuButtons">
+                    <ui:Button text="Start" name="StartButton" class="menuButton" />
+                    <ui:Button text="Options" name="OptionsButton" class="menuButton" />
+                    <ui:Button text="Exit" name="ExitButton" class="menuButton" />
+                    <ui:Button text="Credits" name="CreditsButton" class="menuButton" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

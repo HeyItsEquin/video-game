@@ -1,0 +1,9 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Documents/Stylesheets/CreditsMenu.uss?fileID=7433441132597879392&amp;guid=01950e53d48311bd5b2e655793b4fa5a&amp;type=3#CreditsMenu" />
+    <ui:VisualElement name="Root" style="flex-grow: 1; background-color: rgb(12, 12, 12); align-content: center; justify-content: center; flex-direction: column;">
+        <ui:VisualElement name="TitleContainer" style="flex-grow: 1; justify-content: center; align-self: auto; align-content: center;">
+            <ui:Label text="Not Implemented" name="Title" style="align-self: center; color: rgb(255, 255, 255); font-size: 56px; -unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Examples%20&amp;%20Extras/Fonts/Unity.ttf?fileID=12800000&amp;guid=f4eec857a4fdf2f43be0e9f3d1a984e7&amp;type=3#Unity&quot;);" />
+        </ui:VisualElement>
+        <ui:Button name="BackButton" style="align-self: flex-start; padding-top: 40px; padding-right: 48px; padding-left: 48px; padding-bottom: 40px; border-left-color: rgba(0, 0, 0, 0); border-right-color: rgba(0, 0, 0, 0); border-top-color: rgba(0, 0, 0, 0); border-bottom-color: rgba(0, 0, 0, 0); background-color: rgba(188, 188, 188, 0); background-image: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1008301579157283121&amp;guid=b91b37539974bc142a2801960ac051b6&amp;type=3#arrow-left@2x&quot;);" />
+    </ui:VisualElement>
+</ui:UXML>

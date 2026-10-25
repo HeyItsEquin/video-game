@@ -1,7 +1,6 @@
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Assertions;
-
+using UnityEngine.InputSystem;
 using PhysExt = RotaryHeart.Lib.PhysicsExtension;
 
 public class MovementManager : MonoBehaviour
@@ -33,7 +32,8 @@ public class MovementManager : MonoBehaviour
     private bool grounded;
     private Vector3 groundVelocity;
     private Vector3 appliedGroundVelocity;
-    private float appliedVelocityY;
+
+    private bool shouldSprint;
 
     public bool IsGrounded() => grounded;
 
@@ -59,7 +59,7 @@ public class MovementManager : MonoBehaviour
 
         bool hit = Physics.SphereCast(origin, r, Vector3.down, out groundHit, castDistance, DefaultLMask);
 
-        #if DEBUG
+        #if UNITY_EDITOR
         PhysExt.Physics.SphereCast(origin, r, Vector3.down, castDistance, PhysExt.PreviewCondition.Editor);
         #endif
 
@@ -86,6 +86,7 @@ public class MovementManager : MonoBehaviour
     public void Move(Vector3 movementVec)
     {
         InputDirection = movementVec;
+        shouldSprint = !(movementVec == Vector3.zero);
     }
 
     public void Jump()
@@ -136,7 +137,7 @@ public class MovementManager : MonoBehaviour
         if (Mathf.Abs(groundSnapY - PlayerBody.position.y) > 0.15f) return;
 
         Vector3 p = PlayerBody.position;
-        p.y = groundHit.point.y;
+        p.y = groundSnapY;
         PlayerBody.position = p;
     }
 
@@ -160,7 +161,7 @@ public class MovementManager : MonoBehaviour
         
         if (PlayerGrabManager.IsGrabbing)
             return;
-        playerCharacter.playerCamera.ChangeFovToSprint(MoveSpeed == RunSpeed);
+        playerCharacter.playerCamera.ChangeFovToSprint(MoveSpeed == RunSpeed && shouldSprint);
     }
 
     void FixedUpdate()
