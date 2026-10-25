@@ -1,0 +1,7 @@
+#BackButton:hover {
+    -unity-background-image-tint-color: rgb(204, 204, 204);
+}
+
+#BackButton:active {
+    -unity-background-image-tint-color: rgb(142, 142, 142);
+}

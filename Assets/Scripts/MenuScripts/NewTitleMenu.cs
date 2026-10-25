@@ -3,28 +3,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class NewTitleMenu : MonoBehaviour
+public class NewTitleMenu : MenuScript
 {
     [SerializeField] private string startScene;
     [SerializeField] private OptionsMenu optionsMenu;
+    [SerializeField] private CreditsMenu creditsMenu;
 
-    private UIDocument document;
-    private VisualElement root;
-
-    // Menu buttons
     private Button startButton;
     private Button optionsButton;
     private Button exitButton;
+    private Button creditsButton;
 
-    void Start()
+    protected override void OnRootReady()
     {
-        document = GetComponent<UIDocument>();
-    }
-
-    void OnEnable()
-    {
-        root = document.rootVisualElement;
-        
         startButton = root.Q<Button>("StartButton");
         startButton.clicked += OnStartClicked;
 
@@ -33,6 +24,9 @@ public class NewTitleMenu : MonoBehaviour
 
         exitButton = root.Q<Button>("ExitButton");
         exitButton.clicked += OnExitClicked;
+
+        creditsButton = root.Q<Button>("CreditsButton");
+        creditsButton.clicked += OnCreditsClicked;
     }
 
     void OnStartClicked()
@@ -42,7 +36,8 @@ public class NewTitleMenu : MonoBehaviour
 
     void OnOptionsClicked()
     {
-        
+        optionsMenu.Open(this);
+        Close();
     }
 
     void OnExitClicked()
@@ -53,14 +48,15 @@ public class NewTitleMenu : MonoBehaviour
         Application.Quit();
     }
 
+    void OnCreditsClicked()
+    {
+        creditsMenu.Open(this);
+        Close();
+    }
+
     IEnumerator LoadSceneTransition()
     {
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(startScene);
-    }
-
-    void Update()
-    {
-        
     }
 }

@@ -8,9 +8,9 @@
                     <ui:Button text="Start" name="StartButton" class="menuButton" />
                     <ui:Button text="Options" name="OptionsButton" class="menuButton" />
                     <ui:Button text="Exit" name="ExitButton" class="menuButton" />
+                    <ui:Button text="Credits" name="CreditsButton" class="menuButton" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Button text="Credits" name="Credits" />
     </ui:VisualElement>
 </ui:UXML>
