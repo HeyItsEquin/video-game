@@ -157,6 +157,7 @@ public class MovementManager : MonoBehaviour
         // Checks if the amount pushed down is enough to sprint
         // if true sprint else walk
         MoveSpeed = pushed > 0.5 ? RunSpeed : WalkSpeed;
+        
         if (PlayerGrabManager.IsGrabbing)
             return;
         playerCharacter.playerCamera.ChangeFovToSprint(MoveSpeed == RunSpeed);

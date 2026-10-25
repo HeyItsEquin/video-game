@@ -59,7 +59,6 @@ public class PlayerInputManager : MonoBehaviour
 
     public void OnSprint(InputValue pushed)
     {
-        
         MovementManager.Sprint(pushed.Get<float>());
     }
     void Update()

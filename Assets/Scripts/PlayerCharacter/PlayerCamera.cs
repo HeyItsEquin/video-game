@@ -12,6 +12,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float stepAmount;
 
     private MovementManager PlayerMovementManager;
+    private PlayerCharacter playerCharacter;
     private Rigidbody playerRB;
 
     private float CameraSensitivityFactor = 0.5f;
@@ -34,6 +35,7 @@ public class PlayerCamera : MonoBehaviour
         FieldOfView = Camera.fieldOfView;
         FieldOfViewWalk = FieldOfView;
         PlayerMovementManager = transform.parent.GetComponent<MovementManager>();
+        playerCharacter = transform.parent.GetComponent<PlayerCharacter>();
         playerRB = PlayerMovementManager.GetComponent<Rigidbody>();
     }
 
@@ -91,6 +93,7 @@ public class PlayerCamera : MonoBehaviour
     {
         float angleOfGrab = PlayerMovementManager.PlayerGrabManager.grabbedObject.transform.eulerAngles.y - 180f;
         float clampedAngleOfGrab = Mathf.DeltaAngle(angleOfGrab, GrabAngle);
+        playerCharacter.animationManager.animator.SetFloat("grabAngle", clampedAngleOfGrab);
         clampedAngleOfGrab = Mathf.Clamp(clampedAngleOfGrab, -MaxGrabTurn, MaxGrabTurn);
         GrabAngle = angleOfGrab + clampedAngleOfGrab;
 
@@ -123,9 +126,13 @@ public class PlayerCamera : MonoBehaviour
     Vector3 StepCamera(float vel)
     {
         Vector3 pos = Vector3.zero;
-        pos.y += Mathf.Sin(Time.time * stepFrequency) * stepAmount;
-        pos.x += Mathf.Cos(Time.time * stepFrequency * 2) * stepAmount * 2;
+        pos.x += Mathf.Sin(Time.time * stepFrequency) * stepAmount;
+        pos.y += Mathf.Cos(Time.time * stepFrequency * 2) * stepAmount * 2;
         pos *= vel;
+
+        Vector3 rotation = cameraObject.transform.localEulerAngles;
+        rotation.z = Mathf.Sin(Time.time * stepFrequency + 0.5f) * stepAmount;
+        cameraObject.transform.localEulerAngles = rotation;
         return pos;
     }
 }
