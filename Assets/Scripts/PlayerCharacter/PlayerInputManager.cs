@@ -32,8 +32,8 @@ public class PlayerInputManager : MonoBehaviour
     public void OnMove(InputValue inputVal)
     {
         var input = inputVal.Get<Vector2>();
-        MovementManager.Sprint(GetComponent<PlayerInput>().actions.FindAction("Sprint").ReadValue<float>());
         MovementManager.Move(input);
+        MovementManager.Sprint(GetComponent<PlayerInput>().actions.FindAction("Sprint").ReadValue<float>());
     }
 
     public void OnJump()

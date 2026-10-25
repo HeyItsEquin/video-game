@@ -380,8 +380,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: holdBackRight
-      takeName: holdBackRight
+      name: holdBackLeft
+      takeName: holdBackLeft
       internalID: -2029802313483712293
       firstFrame: 0
       lastFrame: 44
@@ -409,8 +409,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: holdBackLeft
-      takeName: holdBackLeft
+      name: holdBackRight
+      takeName: holdBackRight
       internalID: -7177846536057194791
       firstFrame: 0
       lastFrame: 44

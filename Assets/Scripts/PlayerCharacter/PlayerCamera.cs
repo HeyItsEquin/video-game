@@ -5,7 +5,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float FieldOfViewWalk;
     [SerializeField] private float FieldOfViewSprint;
 
-    [Range(0, 1.0f)]
+    [Range(0, 110.0f)]
     [SerializeField] private float MaxGrabTurn = 0.5f;
     [SerializeField] private float ChangeInFovSpeed;
     [SerializeField] private float stepFrequency;

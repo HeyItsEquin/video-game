@@ -95,10 +95,14 @@ public class MovementManager : MonoBehaviour
         {
             PlayerGrabManager.IsGrabbing = false;
             ApplyJump(0f);
+            playerCharacter.animationManager.PlayAnimation("Jump");
+            playerCharacter.animationManager.animator.SetBool("jumping", true);
         }
         else if (IsGrounded())
         {
             ApplyJump(groundVelocity.y);
+            playerCharacter.animationManager.PlayAnimation("Jump");
+            playerCharacter.animationManager.animator.SetBool("jumping", true);
         }
         else
             Debug.Log("Not grounded");
@@ -139,6 +143,7 @@ public class MovementManager : MonoBehaviour
         Vector3 p = PlayerBody.position;
         p.y = groundSnapY;
         PlayerBody.position = p;
+        playerCharacter.animationManager.animator.SetBool("jumping", false);
     }
 
     public void ResetMovement()
@@ -162,6 +167,7 @@ public class MovementManager : MonoBehaviour
         if (PlayerGrabManager.IsGrabbing)
             return;
         playerCharacter.playerCamera.ChangeFovToSprint(MoveSpeed == RunSpeed && shouldSprint);
+        playerCharacter.animationManager.animator.SetFloat("velocity", MoveSpeed * InputDirection.magnitude / RunSpeed);
     }
 
     void FixedUpdate()
