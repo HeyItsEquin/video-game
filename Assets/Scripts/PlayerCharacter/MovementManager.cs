@@ -1,27 +1,41 @@
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Assertions;
-using System;
+
+using PhysExt = RotaryHeart.Lib.PhysicsExtension;
+
 public class MovementManager : MonoBehaviour
 {
     public GrabManager PlayerGrabManager;
     public PlayerCharacter playerCharacter;
     private GlobalSounds globalSounds;
+
+    [SerializeField] private CapsuleCollider capsule;
+    private float groundSnapY;
+
     [SerializeField] private LayerMask DefaultLMask;
-    [SerializeField] private LayerMask GrabMask;
+
     [SerializeField] private float WalkSpeed = 4f;
     [SerializeField] private float RunSpeed = 10f;
-    [SerializeField] private float JumpPower = 25f;
+    [SerializeField] private float JumpHeight = 1.5f;
+    private float JumpSpeed => Mathf.Sqrt(2f * -Physics.gravity.y * JumpHeight);
+    
     [SerializeField] private float SlopeInfluence = 0.5f;
-    [SerializeField] private float SlopeLimit = 0.5f;
-    [SerializeField] private float GrabOffSpeed = 10f;
+    [SerializeField] private float MaxSlopeAngle = 45;
 
     private Rigidbody PlayerBody;
 
-    private Vector3 MovementDirection = Vector3.zero;
     private Vector3 InputDirection = Vector3.zero;
 
     private RaycastHit groundHit;
     private float MoveSpeed;
+
+    private bool grounded;
+    private Vector3 groundVelocity;
+    private Vector3 appliedGroundVelocity;
+    private float appliedVelocityY;
+
+    public bool IsGrounded() => grounded;
 
 
     void Start()
@@ -31,29 +45,42 @@ public class MovementManager : MonoBehaviour
         globalSounds = GlobalSounds.GetGlobalSounds();
         Assert.IsNotNull(PlayerBody, "Mreow :3; mlm looking for twink");
 
-        
-
-        MovementDirection = Vector3.zero;
         InputDirection = Vector3.zero;
         MoveSpeed = WalkSpeed;
-
     }
 
-    public bool IsGrounded()
+    void UpdateGroundedState()
     {
-        var verticalOffset = Vector3.up/2;
+        groundVelocity = Vector3.zero;
 
-        // checks if the player is grounded by casting a box downwards from the player postion + a camera offset
-        var ray = Physics.BoxCast(
-            transform.position + verticalOffset,
-            Vector3.one/2 - Vector3.up*0.4f,
-            Vector3.down,
-            out groundHit,
-            Quaternion.Euler(transform.forward),
-            transform.localScale.y/1.9f,
-            DefaultLMask);
-        
-        return ray && PlayerBody.linearVelocity.y <= 0;
+        float r = capsule.radius * 0.95f;
+        Vector3 origin = PlayerBody.position + Vector3.up * (r + 0.1f);
+        float castDistance = 0.2f;
+
+        bool hit = Physics.SphereCast(origin, r, Vector3.down, out groundHit, castDistance, DefaultLMask);
+
+        #if DEBUG
+        PhysExt.Physics.SphereCast(origin, r, Vector3.down, castDistance, PhysExt.PreviewCondition.Editor);
+        #endif
+
+        if (hit)
+            groundSnapY = origin.y - groundHit.distance - r;
+
+        if (hit && groundHit.collider.CompareTag("MovingPlatform"))
+        {
+            var platform = groundHit.collider.GetComponentInParent<MovingPlatform>();
+            if (platform != null) groundVelocity = platform.Velocity;
+        }
+
+        // Judge vertical movement relative to the ground, if the ground is moving, the player should not be considered "rising"
+        Vector3 relativeVel = PlayerBody.linearVelocity - appliedGroundVelocity;
+        float awayFromGround = hit ? Vector3.Dot(relativeVel, groundHit.normal) : 0f;
+
+        float minNormalY = Mathf.Cos(MaxSlopeAngle * Mathf.Deg2Rad);
+        grounded = hit
+            && groundHit.distance > 0f
+            && groundHit.normal.y >= minNormalY
+            && awayFromGround < JumpSpeed * 0.25f;
     }
 
     public void Move(Vector3 movementVec)
@@ -65,58 +92,52 @@ public class MovementManager : MonoBehaviour
     {
         if (PlayerGrabManager.IsGrabbing)
         {
-            // sets the player to not grabbing and jumps off the object they are grabbing
             PlayerGrabManager.IsGrabbing = false;
-            PlayerBody.linearVelocity += Vector3.up * JumpPower;
-            globalSounds.PlayRandomized(globalSounds.jumpSound, 0.9f, 1);
+            ApplyJump(0f);
         }
-        
-        if (IsGrounded())
+        else if (IsGrounded())
         {
-            PlayerBody.linearVelocity += Vector3.up * JumpPower;
-            globalSounds.PlayRandomized(globalSounds.jumpSound, 0.9f, 1);
+            ApplyJump(groundVelocity.y);
         }
-        else 
-        {
+        else
             Debug.Log("Not grounded");
-        }
+    }
+
+    void ApplyJump(float baseVelocityY)
+    {
+        var v = PlayerBody.linearVelocity;
+        v.y = baseVelocityY + JumpSpeed;
+        PlayerBody.linearVelocity = v;
+        globalSounds.PlayRandomized(globalSounds.jumpSound, 0.9f, 1);
     }
 
     Vector3 GetLinearVelocity()
     {
-        MovementDirection = transform.forward * InputDirection.y;
-        MovementDirection += transform.right * InputDirection.x;
+        Vector3 move = (transform.forward * InputDirection.y + transform.right * InputDirection.x) * MoveSpeed;
 
-        MovementDirection *= MoveSpeed;
-
-        if (IsGrounded())
+        if (grounded)
         {
-            // if player is grounded use slopes to influence the movement direction
-            float slopeMultiplier = Vector3.ProjectOnPlane(MovementDirection, groundHit.normal).normalized.y;
-            MovementDirection *= (1 - slopeMultiplier * SlopeInfluence);
-        }
-        else
-        {
-            MovementDirection.y = PlayerBody.linearVelocity.y;
+            Vector3 along = Vector3.ProjectOnPlane(move, groundHit.normal).normalized;
+            move = along * move.magnitude * (1 - along.y * SlopeInfluence);
+            appliedGroundVelocity = groundVelocity;
+            return move + groundVelocity;
         }
 
-        // TODO: Figure out
-        if (groundHit.collider != null && groundHit.collider.gameObject.CompareTag("MovingPlatform"))
-        {
-            var platform = groundHit.collider.GetComponentInParent<MovingPlatform>();
-
-                return MovementDirection + platform.GetVelocityVector();
-        }
-
-        return MovementDirection;
+        appliedGroundVelocity = Vector3.zero;
+        move.y = PlayerBody.linearVelocity.y;
+        return move;
     }
 
     // "Hoist" player up if their feet are colliding with an object
     void VerticalAlignPlayer()
     {
-        Vector3 temp = transform.position;
-        temp.y = groundHit.point.y;
-        transform.position = temp; // Should probably find a better solution than setting transform.position, later.
+        if (groundHit.normal.y < 0.99f) return;
+        if (groundHit.distance <= 0f) return;
+        if (Mathf.Abs(groundSnapY - PlayerBody.position.y) > 0.15f) return;
+
+        Vector3 p = PlayerBody.position;
+        p.y = groundHit.point.y;
+        PlayerBody.position = p;
     }
 
     public void ResetMovement()
@@ -128,25 +149,7 @@ public class MovementManager : MonoBehaviour
     public void ResetPosition(Vector3 pos)
     {
         ResetMovement();
-        PlayerBody.transform.position = pos;
-    }
-
-    void FixedUpdate()
-    {
-        RotaryHeart.Lib.PhysicsExtension.Physics.BoxCast(transform.position + Vector3.up/2, Vector3.one / 2 - Vector3.up * 0.4f, Vector3.down, Quaternion.Euler(transform.forward), transform.localScale.y/1.9f, RotaryHeart.Lib.PhysicsExtension.PreviewCondition.Editor);
-        
-        if (PlayerGrabManager.IsGrabbing)
-            PlayerGrabManager.Grabbing();
-        else
-            PlayerBody.linearVelocity = GetLinearVelocity();
-
-        if (IsGrounded())
-        {
-            VerticalAlignPlayer();
-        }
-        
-
-        Debug.DrawRay(transform.position, PlayerBody.linearVelocity, Color.green);
+        PlayerBody.position = pos;
     }
 
     public void Sprint(float pushed)
@@ -157,6 +160,18 @@ public class MovementManager : MonoBehaviour
         if (PlayerGrabManager.IsGrabbing)
             return;
         playerCharacter.playerCamera.ChangeFovToSprint(MoveSpeed == RunSpeed);
-        
+    }
+
+    void FixedUpdate()
+    {
+        UpdateGroundedState();
+
+        if (PlayerGrabManager.IsGrabbing)
+            PlayerGrabManager.Grabbing();
+        else
+            PlayerBody.linearVelocity = GetLinearVelocity();
+
+        if (grounded)
+            VerticalAlignPlayer();
     }
 }
