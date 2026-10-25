@@ -18,10 +18,19 @@ public class OptionsMenu : MenuScript
     protected override void OnRootReady()
     {
         gameplayOptions = root.Q<Button>("GameplayOptions");
+        gameplayOptions.clicked += OnGameplayOptions;
+
         videoOptions = root.Q<Button>("VideoOptions");
+        videoOptions.clicked += OnVideoOptions;
+
         controlOptions = root.Q<Button>("ControlOptions");
+        controlOptions.clicked += OnControlOptions;
+
         audioOptions = root.Q<Button>("AudioOptions");
+        audioOptions.clicked += OnAudioOptions;
+
         miscOptions = root.Q<Button>("MiscOptions");
+        miscOptions.clicked += OnMiscOptions;
 
         navButtonLeft = root.Q<Button>("NavButtonLeft");
         navButtonRight = root.Q<Button>("NavButtonRight");
@@ -30,6 +39,41 @@ public class OptionsMenu : MenuScript
         resetButton = root.Q<Button>("ResetButton");
         cancelButton = root.Q<Button>("CancelButton");
 
+        cancelButton.clicked += OnCancel;
+    }
 
+    void OnGameplayOptions()
+    {
+        
+    }
+    void OnVideoOptions()
+    {
+        
+    }
+    void OnControlOptions()
+    {
+        
+    }
+    void OnAudioOptions()
+    {
+        
+    }
+    void OnMiscOptions()
+    {
+        
+    }
+    
+    void OnNavButtonLeft()
+    {
+        
+    }
+    void OnNavButtonRight()
+    {
+        
+    }
+    
+    void OnCancel()
+    {
+        Back();
     }
 }

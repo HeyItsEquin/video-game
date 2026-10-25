@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 635d27af876a0651f82f7a1cdaa6e9ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startOpen: 0
 --- !u!114 &3392274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,7 +442,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b85ed03030a5b3200a04f2698b3d4dc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startScene: MovementTest
+  startOpen: 1
+  startScene: MovingPlatformsTest
   optionsMenu: {fileID: 1897788230}
   creditsMenu: {fileID: 3392273}
 --- !u!1 &1897788227
@@ -508,6 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e38110eeb599d175589f96e75c8e298d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startOpen: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
