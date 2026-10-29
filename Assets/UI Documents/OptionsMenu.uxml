@@ -13,8 +13,11 @@
                 </ui:VisualElement>
                 <ui:Button name="NavButtonRight" class="nav-button" style="background-image: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1087164816274819069&amp;guid=b91b37539974bc142a2801960ac051b6&amp;type=3#arrow-right@2x&quot;);" />
             </ui:VisualElement>
-            <ui:VisualElement name="OptionsPresenter" style="flex-grow: 1; height: auto; max-height: 700px; margin-top: 24px; padding-bottom: 48px; padding-top: 48px; padding-right: 48px; padding-left: 48px; background-color: rgb(50, 50, 50);">
-                <ui:VisualElement name="OptionsContainer" style="flex-grow: 1;" />
+            <ui:VisualElement name="OptionsPresenter" style="flex-grow: 1; height: auto; max-height: 700px; margin-top: 24px; padding-bottom: 48px; padding-top: 64px; padding-right: 48px; padding-left: 48px; background-color: rgb(50, 50, 50);">
+                <ui:ScrollView name="OptionsContainer" style="flex-grow: 1;">
+                    <ui:VisualElement name="OptionNames" style="flex-grow: 1;" />
+                    <ui:VisualElement name="OptionControllers" />
+                </ui:ScrollView>
             </ui:VisualElement>
             <ui:VisualElement name="BottomButtons" style="flex-grow: 0; align-content: flex-end; flex-direction: row; justify-content: flex-end; padding-top: 8px;">
                 <ui:Button text="Cancel" name="CancelButton" class="action-button" />

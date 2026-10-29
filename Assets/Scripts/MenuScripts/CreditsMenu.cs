@@ -8,6 +8,8 @@ public class CreditsMenu : MenuScript
     {
         backButton = root.Q<Button>("BackButton");
         backButton.clicked += OnBackClicked;
+
+        
     }
 
     void OnBackClicked()

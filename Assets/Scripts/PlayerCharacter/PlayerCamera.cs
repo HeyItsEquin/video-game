@@ -37,6 +37,8 @@ public class PlayerCamera : MonoBehaviour
         PlayerMovementManager = transform.parent.GetComponent<MovementManager>();
         playerCharacter = transform.parent.GetComponent<PlayerCharacter>();
         playerRB = PlayerMovementManager.GetComponent<Rigidbody>();
+
+        Opts.CameraSensitivity.Changed += v => SetCameraSensitivity((float)v/10);
     }
 
     public void Rotate(Vector3 input)

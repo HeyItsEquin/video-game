@@ -95,8 +95,7 @@ public class PauseMenu : MonoBehaviour
 
     void LoadSettings()
     {
-        sensValue = SaveManager.Instance.Get(Opts.CameraSensitivity);
-        playerCamera.SetCameraSensitivity((float)sensValue/10);
+        SaveManager.Instance.Apply(Opts.CameraSensitivity);
     }
 
     void OnResume(ClickEvent evt)
