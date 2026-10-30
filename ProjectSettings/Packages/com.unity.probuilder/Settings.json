@@ -107,6 +107,7 @@
                 "value": "{\"m_Value\":true}"
             },
             {
+<<<<<<< HEAD
                 "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "editor.extrudeEdgesAsGroup",
                 "value": "{\"m_Value\":true}"
@@ -137,6 +138,8 @@
                 "value": "{\"m_Value\":false}"
             },
             {
+=======
+>>>>>>> 261d9330b21d316a13f54393e155000513cdb4f0
                 "type": "UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "mesh.userMaterial",
                 "value": "{\"m_Value\":{\"instanceID\":0}}"
@@ -184,12 +187,7 @@
             {
                 "type": "System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "ExtrudeFaces.distance",
-                "value": "{\"m_Value\":25.760000228881837}"
-            },
-            {
-                "type": "System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
-                "key": "GrowSelection.angleValue",
-                "value": "{\"m_Value\":15.0}"
+                "value": "{\"m_Value\":0.5}"
             },
             {
                 "type": "UnityEngine.ProBuilder.RectSelectMode, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
@@ -200,6 +198,7 @@
                 "type": "UnityEngine.ProBuilder.ExtrudeMethod, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "editor.extrudeMethod",
                 "value": "{\"m_Value\":2}"
+<<<<<<< HEAD
             },
             {
                 "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
@@ -225,6 +224,8 @@
                 "type": "System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "SubdivideEdges.subdivisionsUIMax",
                 "value": "{\"m_Value\":32}"
+=======
+>>>>>>> 261d9330b21d316a13f54393e155000513cdb4f0
             }
         ]
     }
