@@ -65,6 +65,9 @@ public class MovementManager : MonoBehaviour
 
         if (hit)
             groundSnapY = origin.y - groundHit.distance - r;
+        else if (PlayerBody.linearVelocity.y < 0 && !PlayerGrabManager.IsGrabbing)
+            playerCharacter.animationManager.PlayAnimation("Fall");
+        
 
         if (hit && groundHit.collider.CompareTag("MovingPlatform"))
         {
@@ -182,7 +185,6 @@ public class MovementManager : MonoBehaviour
 
         if (grounded)
             VerticalAlignPlayer();
-        else if (!PlayerGrabManager.IsGrabbing)
-            PlayerGrabManager.HangCheck();
+        
     }
 }

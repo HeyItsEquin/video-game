@@ -9,6 +9,7 @@ public class GrabManager : MonoBehaviour
     [SerializeField] private Vector3 CameraOffset;
     [SerializeField] private float GrabGracePeriod = 0.5f;
     [SerializeField] private float grabOffset;
+    [SerializeField] private float hangYOffset = 0.11f;
     public GameObject grabbedObject;
 
     public float angleOfGrab;
@@ -41,9 +42,7 @@ public class GrabManager : MonoBehaviour
     {
         if (IsGrabbing)
         {
-            IsGrabbing = false;
-            isHanging = false;
-            movementManager.playerCharacter.animationManager.animator.SetBool("jumping", true);
+            StopGrabbing();
             return;
         }
         if (!TryingToGrab) 
@@ -64,6 +63,11 @@ public class GrabManager : MonoBehaviour
             movementManager.playerCharacter.playerCamera.ChangeFovToSprint(false);
             movementManager.playerCharacter.animationManager.PlayAnimation("Grab");
             movementManager.playerCharacter.animationManager.animator.SetBool("jumping", false);
+            movementManager.playerCharacter.playerCamera.Rotate(Vector3.zero);
+        }
+        else
+        {
+            HangCheck();
         }
 
         
@@ -90,7 +94,8 @@ public class GrabManager : MonoBehaviour
         else if(isHanging)
         {
             var t = Time.deltaTime * (EasingSpeed * EasingSpeed);
-            transform.position = Vector3.Lerp(transform.position, HangPoint - CameraOffset, t);
+            transform.position = Vector3.Lerp(transform.position,
+                HangPoint - CameraOffset - Vector3.up * hangYOffset, t);
             if (Physics.Raycast(HangPoint, -hangHit.normal, 1f, movementManager.DefaultLMask))
                 HangPoint += Vector3.up * 0.05f;
 
@@ -112,10 +117,13 @@ public class GrabManager : MonoBehaviour
             HangPoint = hangHit.point + hangHit.normal * grabOffset;
             angleOfGrab = Vector3.SignedAngle(Vector3.forward, hangHit.normal, Vector3.up);
             IsGrabbing = true;
+            TryingToGrab = false;
+            StopCoroutine(GrabCourutine());
             isHanging = true;
             movementManager.playerCharacter.playerCamera.ChangeFovToSprint(false);
             movementManager.playerCharacter.animationManager.PlayAnimation("Grab");
             movementManager.playerCharacter.animationManager.animator.SetBool("jumping", false);
+            movementManager.playerCharacter.playerCamera.Rotate(Vector3.zero);
         }
     }
 

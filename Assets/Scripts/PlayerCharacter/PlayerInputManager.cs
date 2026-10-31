@@ -49,6 +49,7 @@ public class PlayerInputManager : MonoBehaviour
     public void OnGrab()
     {
         MovementManager.PlayerGrabManager.Grab();
+        
     }
 
     public void OnSuicide()
