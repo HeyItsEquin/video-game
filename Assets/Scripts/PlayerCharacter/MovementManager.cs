@@ -13,6 +13,7 @@ public class MovementManager : MonoBehaviour
     private float groundSnapY;
 
     public LayerMask DefaultLMask;
+    public LayerMask deathLayer;
 
     [SerializeField] private float WalkSpeed = 4f;
     [SerializeField] private float RunSpeed = 10f;
@@ -59,12 +60,13 @@ public class MovementManager : MonoBehaviour
 
         bool hit = Physics.SphereCast(origin, r, Vector3.down, out groundHit, castDistance, DefaultLMask);
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         PhysExt.Physics.SphereCast(origin, r, Vector3.down, castDistance, PhysExt.PreviewCondition.Editor);
-        #endif
+#endif
 
         if (hit)
             groundSnapY = origin.y - groundHit.distance - r;
+            
         else if (PlayerBody.linearVelocity.y < 0 && !PlayerGrabManager.IsGrabbing)
             playerCharacter.animationManager.PlayAnimation("Fall");
         
@@ -186,5 +188,15 @@ public class MovementManager : MonoBehaviour
         if (grounded)
             VerticalAlignPlayer();
         
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (1 << collision.gameObject.layer == deathLayer)
+        {
+            playerCharacter.ResetState();
+            
+        }
+        Debug.Log("Mreow");
     }
 }
