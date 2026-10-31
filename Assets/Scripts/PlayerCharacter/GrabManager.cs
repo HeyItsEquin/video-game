@@ -11,10 +11,16 @@ public class GrabManager : MonoBehaviour
     [SerializeField] private float grabOffset;
     public GameObject grabbedObject;
 
+    public float angleOfGrab;
     bool TryingToGrab = false;
     public bool IsGrabbing = false;
+    [SerializeField] private Vector3 HangPoint;
+    bool isHanging = false;
+    private RaycastHit hangHit;
     private MovementManager movementManager;
     private Rigidbody PlayerBody;
+    
+    
 
     private void Start()
     {
@@ -36,6 +42,7 @@ public class GrabManager : MonoBehaviour
         if (IsGrabbing)
         {
             IsGrabbing = false;
+            isHanging = false;
             movementManager.playerCharacter.animationManager.animator.SetBool("jumping", true);
             return;
         }
@@ -53,10 +60,12 @@ public class GrabManager : MonoBehaviour
             IsGrabbing = true;
             grabbedObject = grabColliders[0].gameObject;
             TryingToGrab = false;
+            angleOfGrab = grabbedObject.transform.eulerAngles.y;
             movementManager.playerCharacter.playerCamera.ChangeFovToSprint(false);
             movementManager.playerCharacter.animationManager.PlayAnimation("Grab");
             movementManager.playerCharacter.animationManager.animator.SetBool("jumping", false);
         }
+
         
     }
 
@@ -64,6 +73,7 @@ public class GrabManager : MonoBehaviour
     {
         TryingToGrab = false;
         IsGrabbing = false;
+        isHanging = false;
         grabbedObject = null;
         StopCoroutine(GrabCourutine()); // Just incase the grab grace-period is still active
     }
@@ -76,6 +86,36 @@ public class GrabManager : MonoBehaviour
             // Quadratic curve for move speed
             var t = Time.deltaTime * (EasingSpeed*EasingSpeed);
             transform.position = Vector3.Lerp(transform.position, grabbedObject.transform.position + grabbedObject.transform.forward * grabOffset - CameraOffset, t);
+        }
+        else if(isHanging)
+        {
+            var t = Time.deltaTime * (EasingSpeed * EasingSpeed);
+            transform.position = Vector3.Lerp(transform.position, HangPoint - CameraOffset, t);
+            if (Physics.Raycast(HangPoint, -hangHit.normal, 1f, movementManager.DefaultLMask))
+                HangPoint += Vector3.up * 0.05f;
+
+        }
+    }
+
+    public void HangCheck()
+    {
+        bool wallInfront = Physics.Raycast
+            (transform.position + CameraOffset,
+            transform.forward, out hangHit,1f, 
+            movementManager.DefaultLMask);
+        if (wallInfront && PlayerBody.linearVelocity.y < 0
+            && !Physics.Raycast(transform.position + Vector3.up*2, 
+            transform.forward, 
+            1f, movementManager.DefaultLMask) && Mathf.Abs(hangHit.normal.y) < 0.1 &&
+            !hangHit.collider.gameObject.CompareTag("MovingPlatform"))
+        {
+            HangPoint = hangHit.point + hangHit.normal * grabOffset;
+            angleOfGrab = Vector3.SignedAngle(Vector3.forward, hangHit.normal, Vector3.up);
+            IsGrabbing = true;
+            isHanging = true;
+            movementManager.playerCharacter.playerCamera.ChangeFovToSprint(false);
+            movementManager.playerCharacter.animationManager.PlayAnimation("Grab");
+            movementManager.playerCharacter.animationManager.animator.SetBool("jumping", false);
         }
     }
 

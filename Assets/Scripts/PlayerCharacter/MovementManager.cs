@@ -12,7 +12,7 @@ public class MovementManager : MonoBehaviour
     [SerializeField] private CapsuleCollider capsule;
     private float groundSnapY;
 
-    [SerializeField] private LayerMask DefaultLMask;
+    public LayerMask DefaultLMask;
 
     [SerializeField] private float WalkSpeed = 4f;
     [SerializeField] private float RunSpeed = 10f;
@@ -94,6 +94,7 @@ public class MovementManager : MonoBehaviour
         if (PlayerGrabManager.IsGrabbing)
         {
             PlayerGrabManager.IsGrabbing = false;
+            PlayerGrabManager.StopGrabbing();
             ApplyJump(0f);
             playerCharacter.animationManager.PlayAnimation("Jump");
             playerCharacter.animationManager.animator.SetBool("jumping", true);
@@ -181,5 +182,7 @@ public class MovementManager : MonoBehaviour
 
         if (grounded)
             VerticalAlignPlayer();
+        else if (!PlayerGrabManager.IsGrabbing)
+            PlayerGrabManager.HangCheck();
     }
 }
