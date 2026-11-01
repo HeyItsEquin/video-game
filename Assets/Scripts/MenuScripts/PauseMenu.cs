@@ -1,15 +1,8 @@
-using System.ComponentModel.Design.Serialization;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
-public class PauseMenu : MonoBehaviour
+public class PauseMenu : MenuScript
 {
-    private UIDocument Document;
-    private VisualElement root;
-
     [SerializeField] private PlayerCamera playerCamera;
 
     private Button quitButton;
@@ -20,13 +13,30 @@ public class PauseMenu : MonoBehaviour
     private int sensValue = 5;
     private int maxFpsValue = 120;
 
-    private GlobalSounds globalSounds;
-
-    void OnEnable()
+    protected override void OnOpen()
     {
-        globalSounds = GlobalSounds.GetGlobalSounds();
-        Document = GetComponent<UIDocument>();
-        root = Document.rootVisualElement;
+        PauseManager.Pause();
+
+        sensValue = SaveManager.Instance.Get(Opts.CameraSensitivity);
+        maxFpsValue = SaveManager.Instance.Get(Opts.MaxFramerate);
+    }
+
+    protected override void OnClose()
+    {
+        PauseManager.Unpause();
+
+        SaveManager.Instance.Set(Opts.CameraSensitivity, sensValue);
+        SaveManager.Instance.Set(Opts.MaxFramerate, maxFpsValue);
+        SaveManager.Instance.Save();
+    }
+
+    protected override void OnRootReady()
+    {
+        quitButton = root.Q<Button>("QUIT");
+        quitButton.clicked += () => Application.Quit();
+
+        resumeButton = root.Q<Button>("RESUME");
+        resumeButton.clicked += Close;
 
         sensSlider = root.Q<SliderInt>("Sens");
         sensSlider.value = sensValue;
@@ -35,101 +45,26 @@ public class PauseMenu : MonoBehaviour
         maxFpsSlider = root.Q<SliderInt>("MaxFPS");
         maxFpsSlider.value = maxFpsValue;
         maxFpsSlider.RegisterValueChangedCallback(OnMaxFpsSliderValueChanged);
-
-        resumeButton = root.Q<Button>("RESUME");
-        resumeButton.RegisterCallback<ClickEvent>(OnButtonClick);
-        resumeButton.RegisterCallback<ClickEvent>(OnResume);
-        resumeButton.RegisterCallback<MouseEnterEvent>(OnButtonHover);
-
-        quitButton = root.Q<Button>("QUIT");
-        quitButton.RegisterCallback<ClickEvent>(OnQuit);
-        quitButton.RegisterCallback<ClickEvent>(OnButtonClick);
-        quitButton.RegisterCallback<MouseEnterEvent>(OnButtonHover);
-    }
-
-    void Start()
-    {
-        LoadSettings();
-        Hide();
-        LoadSettings();
-    }
-
-    public void Toggle()
-    {
-        if (gameObject.activeSelf == true)
-        {
-            Close();
-        }
-        else
-        {
-            Open();
-        }
-    }
-
-    public void Open()
-    {
-        LoadSettings();
-        gameObject.SetActive(true);
-        PauseManager.Pause();
-    }
-
-    public void Close()
-    {
-        SaveSettings();
-        gameObject.SetActive(false);
-        PauseManager.Unpause();
-    }
-
-    void Hide()
-    {
-        gameObject.SetActive(false);
-        PauseManager.Unpause();
-    }
-
-    void SaveSettings()
-    {
-        SaveManager.Instance.Set(Opts.CameraSensitivity, sensValue);
-
-        SaveManager.Instance.Save();
-    }
-
-    void LoadSettings()
-    {
-        SaveManager.Instance.Apply(Opts.CameraSensitivity);
-    }
-
-    void OnResume(ClickEvent evt)
-    {
-        Close();
-    }
-
-    void OnQuit(ClickEvent evt)
-    {
-        Application.Quit();
     }
 
     void OnSensSliderValueChanged(ChangeEvent<int> sens)
     {
-        OnButtonHover(null);
         playerCamera.SetCameraSensitivity((float)sens.newValue/10);
         sensValue = sens.newValue;
     }
 
     void OnMaxFpsSliderValueChanged(ChangeEvent<int> fps)
     {
-        OnButtonHover(null);
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = fps.newValue;
         maxFpsValue = fps.newValue;
     }
 
-    void OnButtonClick(object evt)
+    public void Toggle()
     {
-        globalSounds.PlayRandomized(globalSounds.MenuButtonClick, 0.8f, 1.0f);
-    }
-
-    void OnButtonHover(object evt)
-    {
-        globalSounds.PlayRandomized(globalSounds.MenuButtonHover, 0.8f, 1.0f);
+        if (IsOpen)
+            Close();
+        else
+            Open(null);
     }
 }
