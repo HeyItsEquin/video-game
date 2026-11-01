@@ -10,8 +10,10 @@ public class AnimationManager : MonoBehaviour
     {
         animator = GetComponentInChildren<Animator>();
         movementManager = GetComponent<MovementManager>();
-
+        meshRenderer.enabled = SaveManager.Instance.Get(Opts.ShowHands);
     }
+
+    
 
     public void PlayAnimation(string animationName)
     {
@@ -20,6 +22,6 @@ public class AnimationManager : MonoBehaviour
 
     public void Rendering(bool render)
     {
-        meshRenderer.enabled = render;
+        
     }
 }

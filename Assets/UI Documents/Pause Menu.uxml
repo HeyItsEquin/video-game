@@ -6,7 +6,7 @@
             <ui:VisualElement name="Options" style="flex-grow: 1;">
                 <ui:ScrollView horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden">
                     <ui:SliderInt label="Sensitivity" value="42" high-value="10" name="Sens" show-input-field="true" page-size="0" low-value="1" class="option-slider" style="padding-top: 4px; padding-right: 2px; padding-bottom: 4px; padding-left: 1px; margin-top: 4px; margin-right: 445px; margin-left: 445px;" />
-                    <ui:SliderInt label="Max FPS" value="42" high-value="240" name="MaxFPS" low-value="30" fill="false" show-input-field="true" inverted="false" class="option-slider" style="align-items: auto; margin-top: 4px; margin-right: 445px; margin-left: 445px; padding-top: 4px; padding-right: 2px; padding-bottom: 4px; padding-left: 1px;" />
+                    <ui:SliderInt label="Max FPS" value="42" high-value="240" name="MaxFPS" low-value="60" fill="false" show-input-field="true" inverted="false" class="option-slider" style="align-items: auto; margin-top: 4px; margin-right: 445px; margin-left: 445px; padding-top: 4px; padding-right: 2px; padding-bottom: 4px; padding-left: 1px;" />
                 </ui:ScrollView>
             </ui:VisualElement>
             <ui:VisualElement name="Controls" style="flex-grow: 1; margin-top: 17px; margin-right: 261px; margin-bottom: 17px; margin-left: 261px; border-right-width: 120px; border-left-width: 120px;">
