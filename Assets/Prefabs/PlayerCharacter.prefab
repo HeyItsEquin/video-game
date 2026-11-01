@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 989248084100626664}
   m_Layer: 0
   m_Name: PlayerModel
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -388,8 +388,11 @@ MonoBehaviour:
   CameraOffset: {x: 0, y: 1.5, z: 0}
   GrabGracePeriod: 0.5
   grabOffset: 0
+  hangYOffset: 0.11
   grabbedObject: {fileID: 0}
+  angleOfGrab: 0
   IsGrabbing: 0
+  HangPoint: {x: 0, y: 0, z: 0}
 --- !u!114 &7169433949866559236
 MonoBehaviour:
   m_ObjectHideFlags: 0

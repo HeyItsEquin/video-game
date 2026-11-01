@@ -1,0 +1,13 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Root" style="flex-grow: 1; align-items: center; justify-content: center;">
+        <ui:VisualElement name="MainBox" style="flex-grow: 0; width: 1000px; height: 600px; background-color: rgb(192, 192, 192); border-top-left-radius: 64px; border-top-right-radius: 64px; border-bottom-right-radius: 16px; border-bottom-left-radius: 16px; padding-top: 32px; padding-right: 32px; padding-bottom: 32px; padding-left: 32px;">
+            <ui:Label text="Tutorial Title" name="Title" style="align-self: center; font-size: 32px; -unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Examples%20&amp;%20Extras/Fonts/Unity.ttf?fileID=12800000&amp;guid=f4eec857a4fdf2f43be0e9f3d1a984e7&amp;type=3#Unity&quot;); padding-left: 12px; padding-right: 12px; background-color: rgba(0, 0, 0, 0.16); border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px;" />
+            <ui:VisualElement name="ContentBox" style="flex-grow: 1; padding-top: 32px; padding-right: 32px; padding-bottom: 32px; padding-left: 32px; margin-top: 32px; margin-right: 32px; margin-bottom: 32px; margin-left: 32px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-left-radius: 32px; border-top-right-radius: 32px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; background-color: rgba(0, 0, 0, 0.04);">
+                <ui:Label text="How to do &lt;b&gt;X&lt;/b&gt;" name="TutorialText" style="font-size: 24px; white-space: normal;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ButtonContainer" style="flex-grow: 0; align-items: center;">
+                <ui:Button text="Ok" name="OkButton" style="align-items: stretch; padding-left: 12px; padding-top: 5px; padding-right: 12px; padding-bottom: 5px; font-size: 24px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; background-color: rgba(0, 0, 0, 0.24);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -45,6 +45,8 @@ public class SliderIntAttribute : ControlAttribute
     {
         var key = (OptionKey<int>)boxedKey;
         var slider = new SliderInt(Label, min, max) { value = SaveManager.Instance.Get(key) };
+        // Value changing somewhere else in the code should reflect in the UI
+        key.Changed += (newVal) => slider.value = newVal;
         slider.RegisterValueChangedCallback(e => SaveManager.Instance.Set(key, e.newValue));
         return slider;
     }
