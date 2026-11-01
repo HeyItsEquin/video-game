@@ -93,7 +93,7 @@ public class PlayerCamera : MonoBehaviour
 
     float GrabClamp(float GrabAngle)
     {
-        float angleOfGrab = PlayerMovementManager.PlayerGrabManager.grabbedObject.transform.eulerAngles.y - 180f;
+        float angleOfGrab = PlayerMovementManager.PlayerGrabManager.angleOfGrab - 180f;
         float clampedAngleOfGrab = Mathf.DeltaAngle(angleOfGrab, GrabAngle);
         playerCharacter.animationManager.animator.SetFloat("grabAngle", clampedAngleOfGrab);
         clampedAngleOfGrab = Mathf.Clamp(clampedAngleOfGrab, -MaxGrabTurn, MaxGrabTurn);
