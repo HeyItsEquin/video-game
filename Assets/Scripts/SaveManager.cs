@@ -26,6 +26,16 @@ public abstract class ControlAttribute : Attribute
         Label = label;
     }
 
+    protected static void Bind<T>(BaseField<T> field, OptionKey<T> key)
+    {
+        field.SetValueWithoutNotify(SaveManager.Instance.Get(key));
+        field.RegisterValueChangedCallback(e => SaveManager.Instance.Set(key, e.newValue));
+
+        Action<T> sync = v => field.SetValueWithoutNotify(v);
+        field.RegisterCallback<AttachToPanelEvent>(_ => key.Changed += sync);
+        field.RegisterCallback<DetachFromPanelEvent>(_ => key.Changed -= sync);
+    }
+
     public abstract Type KeyType { get; }
     public abstract VisualElement Create(object boxedKey);
 }
@@ -44,11 +54,28 @@ public class SliderIntAttribute : ControlAttribute
     public override VisualElement Create(object boxedKey)
     {
         var key = (OptionKey<int>)boxedKey;
-        var slider = new SliderInt(Label, min, max) { value = SaveManager.Instance.Get(key) };
-        // Value changing somewhere else in the code should reflect in the UI
-        key.Changed += (newVal) => slider.value = newVal;
-        slider.RegisterValueChangedCallback(e => SaveManager.Instance.Set(key, e.newValue));
+        var slider = new SliderInt(Label, min, max);
+        Bind(slider, key);
         return slider;
+    }
+}
+
+public class CheckboxAttribute : ControlAttribute
+{
+    public CheckboxAttribute(OptionCategory c, string label)
+        : base(c, label)
+    {
+        
+    }
+
+    public override Type KeyType => typeof(OptionKey<bool>);
+
+    public override VisualElement Create(object boxedKey)
+    {
+        var key = (OptionKey<bool>)boxedKey;
+        var toggle = new Toggle(Label);
+        Bind(toggle, key);
+        return toggle;
     }
 }
 
@@ -71,6 +98,10 @@ public static class Opts
 
     [SliderInt(OptionCategory.Video, "Max Framerate", 30, 240)]
     public static readonly OptionKey<int> MaxFramerate = new("video.maxFramerate", 30);
+
+    [Checkbox(OptionCategory.Gameplay, "Show Hands")]
+    public static readonly OptionKey<bool> ShowHands = new("gameplay.showHands", true);
+
 
     public static readonly OptionKey<string> CurrentLevelId = new("player.currentLevel", "l0");
     public static readonly OptionKey<Checkpoint> PlayerLastCheckpoint = new("player.lastCheckpoint", null);
