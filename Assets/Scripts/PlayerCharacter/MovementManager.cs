@@ -198,9 +198,7 @@ public class MovementManager : MonoBehaviour
     {
         if (1 << collision.gameObject.layer == deathLayer)
         {
-            playerCharacter.ResetState();
-            
+            playerCharacter.ResetState();   
         }
-        Debug.Log("Mreow");
     }
 }

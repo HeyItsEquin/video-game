@@ -10,6 +10,8 @@ public class GrabManager : MonoBehaviour
     [SerializeField] private float GrabGracePeriod = 0.5f;
     [SerializeField] private float grabOffset;
     [SerializeField] private float hangYOffset = 0.11f;
+    public ParticleSystem leftArmGrab;
+    public ParticleSystem rightArmGrab;
     public GameObject grabbedObject;
 
     public float angleOfGrab;
@@ -20,6 +22,8 @@ public class GrabManager : MonoBehaviour
     private RaycastHit hangHit;
     private MovementManager movementManager;
     private Rigidbody PlayerBody;
+    public Vector3 defaultLeftParticlePos;
+    public Vector3 defaultRightParticlePos;
     
     
 
@@ -27,6 +31,8 @@ public class GrabManager : MonoBehaviour
     {
         PlayerBody = GetComponent<Rigidbody>();
         movementManager = GetComponent<MovementManager>();
+        defaultLeftParticlePos = leftArmGrab.transform.localPosition;
+        defaultRightParticlePos = rightArmGrab.transform.localPosition;
         
     }
 
@@ -64,6 +70,10 @@ public class GrabManager : MonoBehaviour
             movementManager.playerCharacter.animationManager.PlayAnimation("Grab");
             movementManager.playerCharacter.animationManager.animator.SetBool("jumping", false);
             movementManager.playerCharacter.playerCamera.Rotate(Vector3.zero);
+            if (Mathf.DeltaAngle(angleOfGrab - 180f, transform.eulerAngles.y) > -20)
+                rightArmGrab.Play();
+            if (Mathf.DeltaAngle(angleOfGrab - 180f, transform.eulerAngles.y) < 20)
+                leftArmGrab.Play();
         }
         else
         {
@@ -79,6 +89,8 @@ public class GrabManager : MonoBehaviour
         IsGrabbing = false;
         isHanging = false;
         grabbedObject = null;
+        rightArmGrab.Stop();
+        leftArmGrab.Stop();
         StopCoroutine(GrabCourutine()); // Just incase the grab grace-period is still active
     }
 
@@ -125,6 +137,10 @@ public class GrabManager : MonoBehaviour
             movementManager.playerCharacter.animationManager.animator.SetBool("jumping", false);
             movementManager.playerCharacter.playerCamera.Rotate(Vector3.zero);
             Debug.Log(transform.eulerAngles.y);
+            if (Mathf.DeltaAngle(angleOfGrab - 180f, transform.eulerAngles.y) > -20)
+                rightArmGrab.Play();
+            if (Mathf.DeltaAngle(angleOfGrab - 180f, transform.eulerAngles.y) < 20)
+                leftArmGrab.Play();
         }
     }
 

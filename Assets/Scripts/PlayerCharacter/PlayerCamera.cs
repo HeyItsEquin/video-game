@@ -96,6 +96,13 @@ public class PlayerCamera : MonoBehaviour
         float angleOfGrab = PlayerMovementManager.PlayerGrabManager.angleOfGrab - 180f;
         float clampedAngleOfGrab = Mathf.DeltaAngle(angleOfGrab, GrabAngle);
         playerCharacter.animationManager.animator.SetFloat("grabAngle", clampedAngleOfGrab);
+        Quaternion rotation = Quaternion.Euler(0, -clampedAngleOfGrab,0);
+        PlayerMovementManager.PlayerGrabManager.rightArmGrab.transform.localPosition = 
+            rotation * PlayerMovementManager.PlayerGrabManager.defaultRightParticlePos;
+        PlayerMovementManager.PlayerGrabManager.leftArmGrab.transform.localPosition =
+            rotation * PlayerMovementManager.PlayerGrabManager.defaultLeftParticlePos;
+        PlayerMovementManager.PlayerGrabManager.rightArmGrab.transform.localRotation = rotation;
+        PlayerMovementManager.PlayerGrabManager.leftArmGrab.transform.localRotation = rotation;
         clampedAngleOfGrab = Mathf.Clamp(clampedAngleOfGrab, -MaxGrabTurn, MaxGrabTurn);
         GrabAngle = angleOfGrab + clampedAngleOfGrab;
 
