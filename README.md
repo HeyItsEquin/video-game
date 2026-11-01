@@ -12,3 +12,5 @@ Made with Unity.
   WASD - Movement
   Left Click - Grab onto ledge/object
   R - Reset your character, go back to the last checkpoint (Temporary feature, will be removed in the future)
+
+<img width="1263" height="704" alt="image" src="https://github.com/user-attachments/assets/20745262-3173-4025-8ec8-65a8434e90c8" />
