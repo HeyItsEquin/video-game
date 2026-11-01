@@ -70,7 +70,10 @@ public class GrabManager : MonoBehaviour
             movementManager.playerCharacter.animationManager.PlayAnimation("Grab");
             movementManager.playerCharacter.animationManager.animator.SetBool("jumping", false);
             movementManager.playerCharacter.playerCamera.Rotate(Vector3.zero);
-            rightArmGrab.Play();
+            if (Mathf.DeltaAngle(angleOfGrab - 180f, transform.eulerAngles.y) > -20)
+                rightArmGrab.Play();
+            if (Mathf.DeltaAngle(angleOfGrab - 180f, transform.eulerAngles.y) < 20)
+                leftArmGrab.Play();
         }
         else
         {
@@ -86,6 +89,8 @@ public class GrabManager : MonoBehaviour
         IsGrabbing = false;
         isHanging = false;
         grabbedObject = null;
+        rightArmGrab.Stop();
+        leftArmGrab.Stop();
         StopCoroutine(GrabCourutine()); // Just incase the grab grace-period is still active
     }
 
