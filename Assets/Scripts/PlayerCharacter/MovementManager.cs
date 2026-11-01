@@ -1,6 +1,6 @@
+using System;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.InputSystem;
 using PhysExt = RotaryHeart.Lib.PhysicsExtension;
 
 public class MovementManager : MonoBehaviour
@@ -28,6 +28,7 @@ public class MovementManager : MonoBehaviour
     private Vector3 InputDirection = Vector3.zero;
 
     private RaycastHit groundHit;
+    public Action<RaycastHit> HitGround;
     private float MoveSpeed;
 
     private bool grounded;
@@ -86,6 +87,9 @@ public class MovementManager : MonoBehaviour
             && groundHit.distance > 0f
             && groundHit.normal.y >= minNormalY
             && awayFromGround < JumpSpeed * 0.25f;
+
+        if (grounded)
+            HitGround.Invoke(groundHit);
     }
 
     public void Move(Vector3 movementVec)

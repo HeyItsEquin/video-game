@@ -15,10 +15,6 @@ public class PlayerInputManager : MonoBehaviour
     {
         playerCharacter = GetComponent<PlayerCharacter>();
         MovementManager = GetComponent<MovementManager>();
-
-        // TODO: DON'T PUT THE FUCKING AMBIENT NOISE IN THE INPUT MANAGER.
-        globalSounds = GlobalSounds.GetGlobalSounds();
-        globalSounds.PlaySound(globalSounds.AmbientWind, volume: 0.5f, loop: true);
     }
 
     public void OnLook(InputValue inputVal)
