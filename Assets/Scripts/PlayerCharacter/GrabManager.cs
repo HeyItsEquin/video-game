@@ -124,6 +124,7 @@ public class GrabManager : MonoBehaviour
             movementManager.playerCharacter.animationManager.PlayAnimation("Grab");
             movementManager.playerCharacter.animationManager.animator.SetBool("jumping", false);
             movementManager.playerCharacter.playerCamera.Rotate(Vector3.zero);
+            Debug.Log(transform.eulerAngles.y);
         }
     }
 
