@@ -105,7 +105,7 @@ public class OptionsMenu : MenuScript
     void LoadTabOptions()
     {
         VisualElement container = root.Q<VisualElement>("OptionNames");
-        container.Clear();
+        container.Clear(); // Remove old options
         foreach (var e in OptionRegistry.Get(currentTab))
             container.Add(e.CreateControl());
     }

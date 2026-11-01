@@ -25,14 +25,10 @@ public class GlobalSounds : MonoBehaviour
                                 float min, float max,
                                 bool randomizeVolume = true, bool randomizePitch = true)
     {
-        if (!source)
-        {
-            Debug.LogError("Attempted to play null AudioSource");
-        }
+        var volume = randomizeVolume ? Random.Range(min, max) : 1.0f;
+        var pitch = randomizePitch ? Random.Range(min, max) : 1.0f;
 
-        if (randomizeVolume) source.volume = Random.Range(min, max);
-        if (randomizePitch) source.volume = Random.Range(min, max);
-        source.Play();
+        PlaySound(source, pitch, volume);
     }
 
     public static GlobalSounds GetGlobalSounds()
