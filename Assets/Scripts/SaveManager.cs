@@ -96,11 +96,14 @@ public static class Opts
     [SliderInt(OptionCategory.Controls, "Camera Sensitivity", 1, 10)]
     public static readonly OptionKey<int> CameraSensitivity = new("controls.sensitivity", 5);
 
-    [SliderInt(OptionCategory.Video, "Max Framerate", 30, 240)]
-    public static readonly OptionKey<int> MaxFramerate = new("video.maxFramerate", 30);
+    [SliderInt(OptionCategory.Video, "Max Framerate", 60, 240)]
+    public static readonly OptionKey<int> MaxFramerate = new("video.maxFramerate", 60);
 
     [Checkbox(OptionCategory.Gameplay, "Show Hands")]
     public static readonly OptionKey<bool> ShowHands = new("gameplay.showHands", true);
+
+    [SliderInt(OptionCategory.Audio, "Volume", 0, 100)]
+    public static readonly OptionKey<int> Volume = new("audio.volume", 100);
 
 
     public static readonly OptionKey<string> CurrentLevelId = new("player.currentLevel", "l0");
