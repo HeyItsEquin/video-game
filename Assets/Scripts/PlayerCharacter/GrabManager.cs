@@ -137,6 +137,10 @@ public class GrabManager : MonoBehaviour
             movementManager.playerCharacter.animationManager.animator.SetBool("jumping", false);
             movementManager.playerCharacter.playerCamera.Rotate(Vector3.zero);
             Debug.Log(transform.eulerAngles.y);
+            if (Mathf.DeltaAngle(angleOfGrab - 180f, transform.eulerAngles.y) > -20)
+                rightArmGrab.Play();
+            if (Mathf.DeltaAngle(angleOfGrab - 180f, transform.eulerAngles.y) < 20)
+                leftArmGrab.Play();
         }
     }
 
